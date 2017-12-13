@@ -1,4 +1,6 @@
 var canvas = new fabric.Canvas('ham-plane');
+var otherCanvas = new fabric.Canvas('ham-plane-result');
+otherCanvas.selection = false;
 var point;
 var drawingMode = true;
 
@@ -39,4 +41,27 @@ canvas.on('object:selected', function(){
 canvas.on('selection:cleared', function(){  
     drawingMode = true;      
 });
+
+$('#reset').click(function () {
+	canvas.clear();
+	redSet = new Set();
+	blueSet = new Set();
+})
+
+
+$('#dual-plane-conversion').click(function() {
+	// otherCanvas.clear();
+	// for (int i = 0; i < blueSet.size; i++) {
+
+	// }
+	var offset = $('#ham-plane-result').offset();
+	
+	
+	otherCanvas.add(new fabric.Line([-100, -100, 200, 200], {
+        left: 170,
+        top: 150,
+        stroke: 'red'
+    }));
+})
+
 
