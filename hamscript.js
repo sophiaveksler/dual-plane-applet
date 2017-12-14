@@ -44,24 +44,64 @@ canvas.on('selection:cleared', function(){
 
 $('#reset').click(function () {
 	canvas.clear();
+	otherCanvas.clear();
 	redSet = new Set();
 	blueSet = new Set();
 })
 
 
 $('#dual-plane-conversion').click(function() {
-	// otherCanvas.clear();
-	// for (int i = 0; i < blueSet.size; i++) {
+	otherCanvas.clear();
+	console.log(blueSet);
+	// (a,b) --> ax + b
+	for (let p of blueSet) {
+		let a = p.left;
+		let b = p.top;
 
-	// }
-	var offset = $('#ham-plane-result').offset();
-	
-	
-	otherCanvas.add(new fabric.Line([-100, -100, 200, 200], {
-        left: 170,
-        top: 150,
-        stroke: 'red'
-    }));
+		let x1 = -100;
+		let y1 = -100 * (a/25.0) + b/25.0;
+		let x2 = 100;
+		let y2 = 100 * (a/25.0) + b/25.0;
+		//y = a*x - b; 
+
+		line = new fabric.Line([x1, y1, x2, y2],{
+			stroke: 'blue',
+			fill: 'blue', 
+			strokeWidth: 3
+		})
+		//line.selection = false; 
+		otherCanvas.add(line);
+
+		// new fabric.Line(coords, {
+  //     fill: 'red',
+  //     stroke: 'red',
+  //     strokeWidth: 5,
+  //     selectable: false
+  //   });
+
+	}
+	for (let p2 of redSet) {
+		let a = p2.left;
+		let b = p2.top;
+
+		console.log("a: " + a + " b: "+ b);
+
+		let x1 = -1000;
+		let y1 = -1000 * (a/25.0) + b/25.0;
+		let x2 = 1000;
+		let y2 = 1000 * (a/25.0) + b/25.0;
+		//y = a*x - b; 
+
+		line = new fabric.Line([x1, y1, x2, y2],{
+			stroke: 'red',
+			fill: 'red', 
+			strokeWidth: 3
+		})
+		//line.selection = false; 
+		otherCanvas.add(line);
+
+	}
+
 })
 
 
