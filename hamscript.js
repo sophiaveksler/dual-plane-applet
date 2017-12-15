@@ -1,8 +1,8 @@
 var canvas = new fabric.Canvas('ham-plane');
-var otherCanvas = new fabric.Canvas('ham-plane-result');
+var dualCanvas = new fabric.Canvas('ham-plane-result');
 canvas.centeredScaling = true;
-otherCanvas.centeredScaling = true;
-otherCanvas.selection = false;
+dualCanvas.centeredScaling = true;
+dualCanvas.selection = false;
 var point;
 var drawingMode = true;
 var width = canvas.width;
@@ -29,8 +29,14 @@ canvas.on('mouse:down', function (event) {
 
 
        	point = new fabric.Circle({radius: 3, fill:colorName, left: x, top: y, id: canvas.getObjects().length});
+        
+       	if (colorName == 'red') {
         redSet.add(point)
+   		}
        
+        else if (colorName == 'blue') {
+        blueSet.add(point)
+   		}
         point.selectable = false;
 
 
@@ -50,7 +56,7 @@ canvas.on('mouse:down', function (event) {
 			id: point.id
 		})
 		line.selectable = false;
-		otherCanvas.add(line);
+		dualCanvas.add(line);
 
     }
     });
@@ -70,61 +76,29 @@ canvas.on('selection:cleared', function(){
 });
 
 $('#reset').click(function () {
+	canvas.drawingMode = true;
 	canvas.clear();
-	otherCanvas.clear();
+	dualCanvas.clear();
 	redSet = new Set();
 	blueSet = new Set();
-	counter = 0;
+    $('#ham-calculator').text("Calculate Ham Sandwich Cut");
+	$('#ham-calculator').attr("disabled", false);
 })
 
 
 $('#ham-calculator').click(function() {
-	if (blueSet.size != redSet.size) { alert ("Add one more point please! You must have an even number of points to do the Ham Sandwich algorithm.")}
-	// else {
-	// otherCanvas.clear();
-	// for (let p of blueSet) {
-	// 	let a = (p.left-(width/2.0))/50.0; // convert to more reasonable coordinates
-	// 	let b = ((height - p.top) - (height/2.0))/50.0;
-
-	// 	let x1 = 0;
-	// 	let y1 = (((-width/2.0)/50.0)*a + b )*50 + width/2.0
-	// 	let x2 = width;
-	// 	let y2 = (((width/2.0)/50.0)*a + b )*50 + width/2.0;
-	// 	//y = a*x - b; 
-
-	// 	line = new fabric.Line([x1, y1, x2, y2],{
-	// 		stroke: 'blue',
-	// 		fill: 'blue', 
-	// 		strokeWidth: 3,
-	// 		id: p.id
-	// 	})
-	// 	line.selectable = false;
-	// 	otherCanvas.add(line);
-
-	// }
-	// for (let p2 of redSet) {
-	// 	let a = (p2.left-(width/2.0))/50.0;
-	// 	let b = ((height - p2.top) - (height/2.0))/50.0 ;
-
-
-	// 	let x1 = 0;
-	// 	let y1 = (((-width/2.0)/50.0)*a + b )*50 + width/2.0
-	// 	let x2 = width;
-	// 	let y2 = (((width/2.0)/50.0)*a + b )*50 + width/2.0;
-	// 	//y = a*x - b; 
-
-	// 	line = new fabric.Line([x1, y1, x2, y2],{
-	// 		stroke: 'red',
-	// 		fill: 'red', 
-	// 		strokeWidth: 3,
-	// 		id: p2.id
-	// 	})
-	// 	line.selectable = false;
-	// 	//line.selection = false; 
-	// 	otherCanvas.add(line);
-
-	// }
+	console.log(blueSet.size)
+	console.log(redSet.size)
+	if (blueSet.size == 0 || redSet.size == 0) {
+		alert("At least 2 points need to be present in the primal plane in order to calculate the Ham Sandwich Cut.")
+		return;
+	}
+	if (blueSet.size != redSet.size) { alert ("Add one more point please! You must have an even number of points to calculate the Ham Sandwich Cut.")}
+	canvas.drawingMode = false;
+	$('#ham-calculator').text("Calculation in progress...");
+	$('#ham-calculator').attr("disabled", true);
 }
+
 
 )
 
