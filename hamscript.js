@@ -18,12 +18,12 @@ canvas.on('mouse:down', function (event) {
 		var x = event.e.clientX - offset.left;
 		var y = event.e.clientY - offset.top;
 		if (color == 0) {
-            point = new fabric.Circle({radius: 3, fill:'blue', left: x, top: y});
+            point = new fabric.Circle({radius: 3, fill:'blue', left: x, top: y, id: canvas.getObjects().length});
             blueSet.add(point)
             color = 1;
         }
         else {
-        	point = new fabric.Circle({radius: 3, fill:'red', left: x, top: y});
+        	point = new fabric.Circle({radius: 3, fill:'red', left: x, top: y, id: canvas.getObjects().length});
         	redSet.add(point)
             color = 0;
         }
@@ -50,13 +50,14 @@ $('#reset').click(function () {
 	otherCanvas.clear();
 	redSet = new Set();
 	blueSet = new Set();
+	counter = 0;
 })
 
 
 $('#dual-plane-conversion').click(function() {
+	if (blueSet.size != redSet.size) { alert ("Add one more point please! You must have an even number of points to do the Ham Sandwich algorithm.")}
+	else {
 	otherCanvas.clear();
-	//console.log(blueSet);
-	// (a,b) --> ax + b
 	for (let p of blueSet) {
 		let a = (p.left-(width/2.0))/25.0; // convert to more reasonable coordinates
 		let b = ((height - p.top) - (height/2.0))/25.0;
@@ -70,9 +71,10 @@ $('#dual-plane-conversion').click(function() {
 		line = new fabric.Line([x1, y1, x2, y2],{
 			stroke: 'blue',
 			fill: 'blue', 
-			strokeWidth: 3
+			strokeWidth: 3,
+			id: p.id
 		})
-		line.selection = false;
+		line.selectable = false;
 		otherCanvas.add(line);
 
 	}
@@ -80,7 +82,6 @@ $('#dual-plane-conversion').click(function() {
 		let a = (p2.left-(width/2.0))/25.0;
 		let b = ((height - p2.top) - (height/2.0))/25.0 ;
 
-		console.log("a: " + a + " b: "+ b);
 
 		let x1 = 0;
 		let y1 = (((-width/2.0)/25.0)*a + b )*25 + width/2.0
@@ -91,13 +92,15 @@ $('#dual-plane-conversion').click(function() {
 		line = new fabric.Line([x1, y1, x2, y2],{
 			stroke: 'red',
 			fill: 'red', 
-			strokeWidth: 3
+			strokeWidth: 3,
+			id: p2.id
 		})
-		line.selection = false;
+		line.selectable = false;
 		//line.selection = false; 
 		otherCanvas.add(line);
 
 	}
+}
 
 })
 
