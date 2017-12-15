@@ -62,9 +62,9 @@ $('#dual-plane-conversion').click(function() {
 		let b = ((height - p.top) - (height/2.0))/25.0;
 
 		let x1 = 0;
-		let y1 = (((-width/2.0)/25.0)*a + b )*25
+		let y1 = (((-width/2.0)/25.0)*a + b )*25 + width/2.0
 		let x2 = width;
-		let y2 = (((width/2.0)/25.0)*a + b )*25;
+		let y2 = (((width/2.0)/25.0)*a + b )*25 + width/2.0;
 		//y = a*x - b; 
 
 		line = new fabric.Line([x1, y1, x2, y2],{
@@ -83,9 +83,9 @@ $('#dual-plane-conversion').click(function() {
 		console.log("a: " + a + " b: "+ b);
 
 		let x1 = 0;
-		let y1 = (((-width/2.0)/25.0)*a + b )*25
+		let y1 = (((-width/2.0)/25.0)*a + b )*25 + width/2.0
 		let x2 = width;
-		let y2 = (((width/2.0)/25.0)*a + b )*25;
+		let y2 = (((width/2.0)/25.0)*a + b )*25 + width/2.0;
 		//y = a*x - b; 
 
 		line = new fabric.Line([x1, y1, x2, y2],{
