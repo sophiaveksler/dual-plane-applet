@@ -1,9 +1,12 @@
 var canvas = new fabric.Canvas('ham-plane');
 var otherCanvas = new fabric.Canvas('ham-plane-result');
+canvas.centeredScaling = true;
+otherCanvas.centeredScaling = true;
 otherCanvas.selection = false;
 var point;
 var drawingMode = true;
-
+var width = canvas.width;
+var height = canvas.height;
 var color = 0;
 var redSet = new Set();
 var blueSet = new Set();
@@ -52,16 +55,16 @@ $('#reset').click(function () {
 
 $('#dual-plane-conversion').click(function() {
 	otherCanvas.clear();
-	console.log(blueSet);
+	//console.log(blueSet);
 	// (a,b) --> ax + b
 	for (let p of blueSet) {
-		let a = p.left;
-		let b = p.top;
+		let a = (p.left-(width/2.0))/25.0; // convert to more reasonable coordinates
+		let b = ((height - p.top) - (height/2.0))/25.0;
 
-		let x1 = -100;
-		let y1 = -100 * (a/25.0) + b/25.0;
-		let x2 = 100;
-		let y2 = 100 * (a/25.0) + b/25.0;
+		let x1 = 0;
+		let y1 = (((-width/2.0)/25.0)*a + b )*25
+		let x2 = width;
+		let y2 = (((width/2.0)/25.0)*a + b )*25;
 		//y = a*x - b; 
 
 		line = new fabric.Line([x1, y1, x2, y2],{
@@ -69,27 +72,20 @@ $('#dual-plane-conversion').click(function() {
 			fill: 'blue', 
 			strokeWidth: 3
 		})
-		//line.selection = false; 
+		line.selection = false;
 		otherCanvas.add(line);
-
-		// new fabric.Line(coords, {
-  //     fill: 'red',
-  //     stroke: 'red',
-  //     strokeWidth: 5,
-  //     selectable: false
-  //   });
 
 	}
 	for (let p2 of redSet) {
-		let a = p2.left;
-		let b = p2.top;
+		let a = (p2.left-(width/2.0))/25.0;
+		let b = ((height - p2.top) - (height/2.0))/25.0 ;
 
 		console.log("a: " + a + " b: "+ b);
 
-		let x1 = -1000;
-		let y1 = -1000 * (a/25.0) + b/25.0;
-		let x2 = 1000;
-		let y2 = 1000 * (a/25.0) + b/25.0;
+		let x1 = 0;
+		let y1 = (((-width/2.0)/25.0)*a + b )*25
+		let x2 = width;
+		let y2 = (((width/2.0)/25.0)*a + b )*25;
 		//y = a*x - b; 
 
 		line = new fabric.Line([x1, y1, x2, y2],{
@@ -97,6 +93,7 @@ $('#dual-plane-conversion').click(function() {
 			fill: 'red', 
 			strokeWidth: 3
 		})
+		line.selection = false;
 		//line.selection = false; 
 		otherCanvas.add(line);
 
