@@ -1,5 +1,9 @@
 function calculateHamSandwich()
 {
+    
+    changePointColor(totalSet[0], 'green');
+    //returnPointColorToSet(totalSet[0]);
+    console.log(totalSet[0]);
 	console.log('hi');
 }
 

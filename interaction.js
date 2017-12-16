@@ -124,17 +124,27 @@ function replaceAllLinesOnDualCanvas() {
 
 function changePointColor(point, newColorName) {
 	modifiedColorName = newColorName;
-	//primalCanvas.id(point.ID).color = newColorName
-	//dualCanvas.id(point.ID).color = newColorName
+
 	point.fabricPoint.stroke = newColorName;
+	point.fabricPoint.fill = newColorName;
+	point.fabricLine.stroke = newColorName;
 	point.fabricLine.fill = newColorName;
+
+	// redraw everything
+	replaceAllPointsOnPrimalCanvas();
+	replaceAllLinesOnDualCanvas();
+
 }
 
 function returnPointColorToSet(point) {
-	//primalCanvas.id(point.ID).color = point.colorName
-	//dualCanvas.id(point.ID).color = point.colorName
 	point.fabricPoint.stroke = point.colorName;
+	point.fabricPoint.fill = point.colorName;
+	point.fabricLine.stroke = point.colorName;
 	point.fabricLine.fill = point.colorName;
+
+	// redraw everything
+	replaceAllPointsOnPrimalCanvas();
+	replaceAllLinesOnDualCanvas();
 }
 
 // -----------------------------------------
@@ -169,9 +179,10 @@ $('#ham-calculator').click(function() {
 	
 	$('#ham-calculator').text("Calculation in progress...");
 	$('#ham-calculator').attr("disabled", true);
-}
+})
+$('#test').click(function() {
+	returnPointColorToSet(totalSet[0]);
+})
 
-
-)
 
 
