@@ -51,8 +51,8 @@ function fillPointData(event) {
 
 	// Get Fabric Line
 	[point.x, point.y] = scalePrimalPointData(point.x, point.y);
-	[point.dualSlope, point.dualIntercept] = getDualValuesfromXY(point.x, point.y);
-	point.fabricLine = createFabricLine(point.dualSlope, point.dualIntercept, point.colorName, point.ID);
+	[point.dualSlope, point.dualIntercept] = getDualLineFromXY(point.x, point.y);
+	point.fabricLine = createDualFabricLine(point.dualSlope, point.dualIntercept, point.colorName, point.ID);
 
 	// make point not selectable
 	point.fabricPoint.selectable = false;
@@ -61,8 +61,8 @@ function fillPointData(event) {
 function scalePrimalPointData(x, y) {
 	var x1, y1;
 
-	x1 = (point.x - (width/2.0)) / x_scale; // convert to more reasonable coordinates
-	y1 = ((height - point.y) - (height/2.0)) / y_scale;
+	x1 = (x - (width/2.0)) / x_scale; // convert to more reasonable coordinates
+	y1 = ((height - y) - (height/2.0)) / y_scale;
 
 	return [x1, y1];
 }
@@ -76,25 +76,62 @@ function scalePrimalPointDataReverse(x, y) {
 	return [x1, y1];
 }
 
-function getDualValuesfromXY(x, y)
+function getDualLineFromXY(x, y)
 {
 	return [x, -y];
 }
 
-function getXYfromDualValues(slope, intercept)
+function getXYFromDualLine(slope, intercept)
 {
 	return [slope, -intercept];
 }
 
-function createFabricLine(dualSlope,dualIntercept,colorName,pointID) {
+// ?
+function getPrimalLineFromAB(a, b)
+{
+	return [a, -b];
+}
+
+// ?
+function getABFromPrimalLine(slope, intercept)
+{
+	return [slope, -intercept];
+}
+
+function scaleDualPointData(a, b) {
+	var a1, b1;
+
+	a1 = (a - (width/2.0)) / a_scale; // convert to more reasonable coordinates
+	b1 = ((height - b) - (height/2.0)) / b_scale;
+
+	return [a1, b1];
+}
+
+function scaleDualPointDataReverse(a, b) {
+	var a1, b1;
+
+	a1 = (a * a_scale) + (width/2.0); // convert to more reasonable coordinates
+	b1 = (height - ((b * b_scale) + (height/2.0)));
+
+	return [a1, b1];
+}
+
+function createDualFabricLine(dualSlope,dualIntercept,colorName,pointID) {
 	// Get endpoints for the line
-	let x1 = 0;
-	let y1 = (((-width/2.0)/50.0)*dualSlope + dualIntercept )*50 + width/2.0
-	let x2 = width;
-	let y2 = (((width/2.0)/50.0)*dualSlope + dualIntercept )*50 + width/2.0;
+	let a1 = a_min;
+	let b1 = dualSlope*a1 + dualIntercept;
+	let a2 = a_max;
+	let b2 = dualSlope*a2 + dualIntercept;
+
+	let canvasA1 = 0;
+	let canvasB1 = 0;
+	let canvasA2 = 0;
+	let canvasB2 = 0;
+	[canvasA1, canvasB1] = scaleDualPointDataReverse(a1, b1);
+	[canvasA2, canvasB2] = scaleDualPointDataReverse(a2, b2);
 
 	// Create Line
-	line = new fabric.Line([x1, y1, x2, y2],
+	line = new fabric.Line([canvasA1, canvasB1, canvasA2, canvasB2],
 							{
 								stroke: colorName,
 								fill: colorName, 
