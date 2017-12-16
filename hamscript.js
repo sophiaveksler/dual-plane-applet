@@ -208,7 +208,12 @@ $('#ham-calculator').click(function() {
 		return;
 	}
 
-	if (totalSet.length % 2 == 1) { alert ("Add one more point please! You must have an even number of points to calculate the Ham Sandwich Cut.")}
+	if (totalSet.length % 2 == 1) {
+		alert ("Add one more point please! You must have an even number of points to calculate the Ham Sandwich Cut.")
+		return;
+	}
+
+	calculateHamSandwich();
 	
 	primalCanvas.drawingMode = false;
 	
