@@ -1,11 +1,13 @@
 function calculateHamSandwich()
 {
-    changePointColor(totalSet[0], 'green');
-    console.log(totalSet[0]);
-	console.log('hi');
+	sortBySlope(totalSet);
+	var median = Math.floor(totalSet.length / 2);
+	changePointColor(totalSet[median], 'green');
 }
 
-function sortBySlope(pointData1, pointData2)
+function sortBySlope(dataSet)
 {
-	return pointData1.a - pointData2.a;
+	dataSet.sort(function(pointData1, pointData2) {
+			return pointData1.a - pointData2.a;
+	});
 }
