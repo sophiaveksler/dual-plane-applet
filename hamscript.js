@@ -1,19 +1,19 @@
-var canvas = new fabric.Canvas('ham-plane');
+var primalCanvas = new fabric.Canvas('ham-plane');
 var dualCanvas = new fabric.Canvas('ham-plane-result');
-canvas.centeredScaling = true;
+primalCanvas.centeredScaling = true;
 dualCanvas.centeredScaling = true;
 dualCanvas.selection = false;
 var point;
 var drawingMode = true;
-var width = canvas.width;
-var height = canvas.height;
+var width = primalCanvas.width;
+var height = primalCanvas.height;
 var color = 0;
 var redSet = new Set();
 var blueSet = new Set();
 
-canvas.on('mouse:down', function (event) {
+primalCanvas.on('mouse:down', function (event) {
 	if (drawingMode) {
-		canvas.selection = false;
+		primalCanvas.selection = false;
 		var offset = $('#ham-plane').offset();
 		var x = event.e.clientX - offset.left;
 		var y = event.e.clientY - offset.top;
@@ -28,7 +28,7 @@ canvas.on('mouse:down', function (event) {
 		}
 
 
-       	point = new fabric.Circle({radius: 3, fill:colorName, left: x, top: y, id: canvas.getObjects().length});
+       	point = new fabric.Circle({radius: 3, fill:colorName, left: x, top: y, id: primalCanvas.getObjects().length});
         
        	if (colorName == 'red') {
         redSet.add(point)
@@ -61,23 +61,23 @@ canvas.on('mouse:down', function (event) {
     }
     });
 
-canvas.on('mouse:up', function (event) {
+primalCanvas.on('mouse:up', function (event) {
 	if (drawingMode) {
-		canvas.selection = true;
-	  	canvas.add(point)
+		primalCanvas.selection = true;
+	  	primalCanvas.add(point)
 	}
     });
 
-canvas.on('object:selected', function(){
+primalCanvas.on('object:selected', function(){
     drawingMode = false;         
 });
-canvas.on('selection:cleared', function(){  
+primalCanvas.on('selection:cleared', function(){  
     drawingMode = true;      
 });
 
 $('#reset').click(function () {
-	canvas.drawingMode = true;
-	canvas.clear();
+	primalCanvas.drawingMode = true;
+	primalCanvas.clear();
 	dualCanvas.clear();
 	redSet = new Set();
 	blueSet = new Set();
@@ -94,7 +94,7 @@ $('#ham-calculator').click(function() {
 		return;
 	}
 	if (blueSet.size != redSet.size) { alert ("Add one more point please! You must have an even number of points to calculate the Ham Sandwich Cut.")}
-	canvas.drawingMode = false;
+	primalCanvas.drawingMode = false;
 	$('#ham-calculator').text("Calculation in progress...");
 	$('#ham-calculator').attr("disabled", true);
 }
