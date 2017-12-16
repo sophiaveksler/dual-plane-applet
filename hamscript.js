@@ -39,7 +39,7 @@ var point = new customPointDataStructure();
 // Sets
 var redSet = new Set();
 var blueSet = new Set();
-var totalSet = new Set();
+var totalSet = new Array();
 
 // Other Variables
 var color = 0;
@@ -72,7 +72,7 @@ primalCanvas.on('mouse:down', function (event) {
 		point.fabricPoint.selectable = false;
 
 		// Add to totalSet
-		totalSet.add(point);
+		totalSet.push(point);
     }
 });
 
@@ -159,15 +159,21 @@ primalCanvas.on('selection:cleared', function() {
 
 function replaceAllPointsOnPrimalCanvas() {
 	primalCanvas.clear();
-	totalSet.forEach(function callback(value1, value2, totalSet) {
-		primalCanvas.add(value1.fabricPoint);
+	//totalSet.forEach(function callback(value1, value2, totalSet) {
+	//	primalCanvas.add(value1.fabricPoint);
+	//});
+	totalSet.forEach(function(element) {
+		primalCanvas.add(element.fabricPoint);
 	});
 }
 
 function replaceAllLinesOnDualCanvas() {
 	dualCanvas.clear();
-	totalSet.forEach(function callback(value1, value2, totalSet) {
-		dualCanvas.add(value1.fabricLine);
+	//totalSet.forEach(function callback(value1, value2, totalSet) {
+	//	dualCanvas.add(value1.fabricLine);
+	//});
+	totalSet.forEach(function(element) {
+		dualCanvas.add(element.fabricLine);
 	});
 }
 
@@ -177,13 +183,15 @@ function replaceAllLinesOnDualCanvas() {
 
 function changePointColor(point, newColorName) {
 	modifiedColorName = newColorName;
-	//canvas.id(point.ID).color = newColorName
+	//primalCanvas.id(point.ID).color = newColorName
+	//dualCanvas.id(point.ID).color = newColorName
 	point.fabricPoint.stroke = newColorName;
 	point.fabricLine.fill = newColorName;
 }
 
 function returnPointColorToSet(point) {
-	//canvas.id(point.ID).color = point.colorName
+	//primalCanvas.id(point.ID).color = point.colorName
+	//dualCanvas.id(point.ID).color = point.colorName
 	point.fabricPoint.stroke = point.colorName;
 	point.fabricLine.fill = point.colorName;
 }
@@ -198,7 +206,7 @@ $('#reset').click(function () {
 	dualCanvas.clear();
 	redSet = new Set();
 	blueSet = new Set();
-	totalSet = new Set();
+	totalSet = new Array();
 	$('#ham-calculator').text("Calculate Ham Sandwich Cut");
 	$('#ham-calculator').attr("disabled", false);
 })
