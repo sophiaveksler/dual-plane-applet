@@ -46,12 +46,12 @@ function fillPointData(event) {
 												id: primalCanvas.getObjects().length
 											});
 
-	// Get Fabric Line
-	[a, b] = scalePrimalPointData(point.x, point.y);
-	point.fabricLine = createFabricLine(a,b,point.colorName,point.fabricPoint.id);
-
 	// get overall point id
 	point.ID = point.fabricPoint.id;
+
+	// Get Fabric Line
+	[point.a, point.b] = scalePrimalPointData(point.x, point.y);
+	point.fabricLine = createFabricLine(point.a, point.b, point.colorName, point.ID);
 
 	// make point not selectable
 	point.fabricPoint.selectable = false;
