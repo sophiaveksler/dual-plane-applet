@@ -100,9 +100,6 @@ primalCanvas.on('mouse:up', function (event) {
 
 function replaceAllPointsOnPrimalCanvas() {
 	primalCanvas.clear();
-	//totalSet.forEach(function callback(value1, value2, totalSet) {
-	//	primalCanvas.add(value1.fabricPoint);
-	//});
 	totalSet.forEach(function(element) {
 		primalCanvas.add(element.fabricPoint);
 	});
@@ -110,9 +107,6 @@ function replaceAllPointsOnPrimalCanvas() {
 
 function replaceAllLinesOnDualCanvas() {
 	dualCanvas.clear();
-	//totalSet.forEach(function callback(value1, value2, totalSet) {
-	//	dualCanvas.add(value1.fabricLine);
-	//});
 	totalSet.forEach(function(element) {
 		dualCanvas.add(element.fabricLine);
 	});
