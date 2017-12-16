@@ -62,17 +62,17 @@ primalCanvas.on('mouse:down', function (event) {
 		point = new customPointDataStructure();
 		fillPointData(event);
         
-        // Add to color sets
-       	if (point.colorName == 'red') {
-        	redSet.add(point.fabricPoint)
-   		} else if (point.colorName == 'blue') {
-        	blueSet.add(point.fabricPoint)
-   		}
+		// Add to color sets
+		if (point.colorName == 'red') {
+			redSet.add(point.fabricPoint)
+		} else if (point.colorName == 'blue') {
+			blueSet.add(point.fabricPoint)
+		}
 
-        point.fabricPoint.selectable = false;
+		point.fabricPoint.selectable = false;
 
-        // Add to totalSet
-        totalSet.add(point);
+		// Add to totalSet
+		totalSet.add(point);
     }
 });
 
@@ -92,7 +92,7 @@ function fillPointData(event) {
 	}
 
 	// Get Fabric Point
-   	point.fabricPoint = new fabric.Circle(	{
+	point.fabricPoint = new fabric.Circle(	{
    												radius: 3,
    												fill: point.colorName,
    												left: point.x,
@@ -101,7 +101,7 @@ function fillPointData(event) {
    											});
 
 	// Get Fabric Line
-    [a, b] = scalePrimalPointData(point.x, point.y);
+	[a, b] = scalePrimalPointData(point.x, point.y);
 	point.fabricLine = createFabricLine(a,b,point.colorName,point.fabricPoint.id);
 
 	// get overall point id
@@ -140,17 +140,17 @@ function createFabricLine(a,b,colorName,pointID) {
 primalCanvas.on('mouse:up', function (event) {
 	if (drawingMode) {
 		primalCanvas.selection = true;
-	  	primalCanvas.add(point.fabricPoint);
+		primalCanvas.add(point.fabricPoint);
 		dualCanvas.add(point.fabricLine);
 	}
 });
 
 primalCanvas.on('object:selected', function() {
-    drawingMode = false;
+	drawingMode = false;
 });
 
 primalCanvas.on('selection:cleared', function() {
-    drawingMode = true;
+	drawingMode = true;
 });
 
 // -----------------------------------------
@@ -199,7 +199,7 @@ $('#reset').click(function () {
 	redSet = new Set();
 	blueSet = new Set();
 	totalSet = new Set();
-    $('#ham-calculator').text("Calculate Ham Sandwich Cut");
+	$('#ham-calculator').text("Calculate Ham Sandwich Cut");
 	$('#ham-calculator').attr("disabled", false);
 })
 
