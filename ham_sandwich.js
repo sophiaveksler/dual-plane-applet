@@ -16,6 +16,11 @@ var upperSlopes = new Array();
 
 function calculateHamSandwich()
 {
+	if (totalSet.length == 2) {
+		findIntersection(totalSet[0], totalSet[1]);
+		// do ham sandwich stuff
+		return;
+	}
 	// clear
 	linePairs = new Array();
 	lowerSlopes = new Array();
@@ -23,7 +28,7 @@ function calculateHamSandwich()
 
 	// sort by slope, find median slope
 	sortBySlope(totalSet);
-	var median = Math.floor(totalSet.length / 2);
+	var median = Math.floor(totalSet.length / 2) - 1;
 	changePointColor(totalSet[median], 'green');
 
 	// get lower slopes, get upper slopes
@@ -33,6 +38,9 @@ function calculateHamSandwich()
 	for(i = median + 2 ; i < totalSet.length ; i++) {
 		upperSlopes.push(totalSet[i]);
 	}
+
+	console.log(lowerSlopes);
+	console.log(upperSlopes);
 	// pair lower and upper slopes arbitrarily
 	for(i = 0 ; i < lowerSlopes.length ; i++)
 	{
@@ -51,7 +59,31 @@ function calculateHamSandwich()
 
 function findIntersection(point1, point2)
 {
+	let a1 = point1.a;
+	let b1 = point1.b;
+	let a2 = point2.a;
+	let b2 = point2.b;
+
 	var intersectionA, intersectionB;
+
+	if (point1.a - point2.a == 0) {
+		console.log("NOPE");
+		return;
+	}
+
+	intersectionA = (b2-b1)/(a1-a2)
+	intersectionB = a1 * intersectionA + b1;
+
+	xA = intersectionA*50 + width/2.0
+	yA = intersectionB*50 + height/2.0
+
+
+	p = new fabric.Circle(	{
+												radius: 3,
+												fill: 'green',
+												left: xA,
+												top: yA,
+											});
 
 	return [intersectionA, intersectionB];
 }
