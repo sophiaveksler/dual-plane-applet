@@ -28,8 +28,8 @@ var height = primalCanvas.height;
 function customPointDataStructure() {
 	this.x = 0;
 	this.y = 0;
-	this.a = 0;
-	this.b = 0;
+	this.dual_slope = 0;
+	this.dual_intercept = 0;
 	this.colorName = 'blue';
 	this.modifiedColorName = 'green';
 	this.ID = 0;

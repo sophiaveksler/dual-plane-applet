@@ -59,10 +59,10 @@ function calculateHamSandwich()
 
 function findIntersection(point1, point2)
 {
-	let a1 = point1.a;
-	let b1 = point1.b;
-	let a2 = point2.a;
-	let b2 = point2.b;
+	let a1 = point1.dualSlope;
+	let b1 = point1.dualIntercept;
+	let a2 = point2.dualSlope;
+	let b2 = point2.dualIntercept;
 
 	var intersectionA, intersectionB;
 
@@ -91,6 +91,6 @@ function findIntersection(point1, point2)
 function sortBySlope(dataSet)
 {
 	dataSet.sort(function(pointData1, pointData2) {
-			return pointData1.a - pointData2.a;
+			return pointData1.dualSlope - pointData2.dualSlope;
 	});
 }

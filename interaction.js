@@ -50,8 +50,9 @@ function fillPointData(event) {
 	point.ID = point.fabricPoint.id;
 
 	// Get Fabric Line
-	[point.a, point.b] = scalePrimalPointData(point.x, point.y);
-	point.fabricLine = createFabricLine(point.a, point.b, point.colorName, point.ID);
+	[point.x, point.y] = scalePrimalPointData(point.x, point.y);
+	[point.dualSlope, point.dualIntercept] = getDualValuesfromXY(point.x, point.y);
+	point.fabricLine = createFabricLine(point.dualSlope, point.dualIntercept, point.colorName, point.ID);
 
 	// make point not selectable
 	point.fabricPoint.selectable = false;
@@ -60,18 +61,37 @@ function fillPointData(event) {
 function scalePrimalPointData(x, y) {
 	var x1, y1;
 
-	x1 = (point.x-(width/2.0))/50.0; // convert to more reasonable coordinates
-	y1 = ((height - point.y) - (height/2.0))/50.0;
+	x1 = (point.x - (width/2.0)) / x_scale; // convert to more reasonable coordinates
+	y1 = ((height - point.y) - (height/2.0)) / y_scale;
 
 	return [x1, y1];
 }
 
-function createFabricLine(a,b,colorName,pointID) {
+function scalePrimalPointDataReverse(x, y) {
+	var x1, y1;
+
+	x1 = (x * x_scale) + (width/2.0); // convert to more reasonable coordinates
+	y1 = (height - ((y * y_scale) + (height/2.0)));
+
+	return [x1, y1];
+}
+
+function getDualValuesfromXY(x, y)
+{
+	return [x, -y];
+}
+
+function getXYfromDualValues(slope, intercept)
+{
+	return [slope, -intercept];
+}
+
+function createFabricLine(dualSlope,dualIntercept,colorName,pointID) {
 	// Get endpoints for the line
 	let x1 = 0;
-	let y1 = (((-width/2.0)/50.0)*a + b )*50 + width/2.0
+	let y1 = (((-width/2.0)/50.0)*dualSlope + dualIntercept )*50 + width/2.0
 	let x2 = width;
-	let y2 = (((width/2.0)/50.0)*a + b )*50 + width/2.0;
+	let y2 = (((width/2.0)/50.0)*dualSlope + dualIntercept )*50 + width/2.0;
 
 	// Create Line
 	line = new fabric.Line([x1, y1, x2, y2],
