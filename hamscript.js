@@ -36,9 +36,7 @@ customPointDataStructure.prototype = {
 
 var point = new customPointDataStructure();
 
-// Sets
-var redSet = new Set();
-var blueSet = new Set();
+// Set
 var totalSet = new Array();
 
 // Other Variables
@@ -61,19 +59,10 @@ primalCanvas.on('mouse:down', function (event) {
 		// Create point
 		point = new customPointDataStructure();
 		fillPointData(event);
-        
-		// Add to color sets
-		if (point.colorName == 'red') {
-			redSet.add(point.fabricPoint)
-		} else if (point.colorName == 'blue') {
-			blueSet.add(point.fabricPoint)
-		}
-
-		point.fabricPoint.selectable = false;
 
 		// Add to totalSet
 		totalSet.push(point);
-    }
+	}
 });
 
 function fillPointData(event) {
@@ -93,12 +82,12 @@ function fillPointData(event) {
 
 	// Get Fabric Point
 	point.fabricPoint = new fabric.Circle(	{
-   												radius: 3,
-   												fill: point.colorName,
-   												left: point.x,
-   												top: point.y,
-   												id: primalCanvas.getObjects().length
-   											});
+												radius: 3,
+												fill: point.colorName,
+												left: point.x,
+												top: point.y,
+												id: primalCanvas.getObjects().length
+											});
 
 	// Get Fabric Line
 	[a, b] = scalePrimalPointData(point.x, point.y);
@@ -106,6 +95,9 @@ function fillPointData(event) {
 
 	// get overall point id
 	point.ID = point.fabricPoint.id;
+
+	// make point not selectable
+	point.fabricPoint.selectable = false;
 }
 
 function scalePrimalPointData(x, y) {
@@ -204,8 +196,6 @@ $('#reset').click(function () {
 	primalCanvas.drawingMode = true;
 	primalCanvas.clear();
 	dualCanvas.clear();
-	redSet = new Set();
-	blueSet = new Set();
 	totalSet = new Array();
 	$('#ham-calculator').text("Calculate Ham Sandwich Cut");
 	$('#ham-calculator').attr("disabled", false);
@@ -213,12 +203,12 @@ $('#reset').click(function () {
 
 
 $('#ham-calculator').click(function() {
-	if (blueSet.size == 0 || redSet.size == 0) {
+	if (totalSet.length < 2) {
 		alert("At least 2 points need to be present in the primal plane in order to calculate the Ham Sandwich Cut.")
 		return;
 	}
 
-	if (blueSet.size != redSet.size) { alert ("Add one more point please! You must have an even number of points to calculate the Ham Sandwich Cut.")}
+	if (totalSet.length % 2 == 1) { alert ("Add one more point please! You must have an even number of points to calculate the Ham Sandwich Cut.")}
 	
 	primalCanvas.drawingMode = false;
 	
