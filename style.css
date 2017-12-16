@@ -3,11 +3,47 @@ canvas {
 }
 div {
 	display: inline-block;
+
 }
 h2 {
 	line-height: 10px;
 	margin-bottom: 5px;
+	font-size: 40px;
+
 }
 h3 {
 	margin-bottom: 0px;
+	font-size: 20px;
+}
+body {
+	font-family: "Arial", sans-serif;
+}
+button {
+	margin-top: 10px;
+	margin-right: 5px;
+	background-color: #3A74C4; /* a nice blue */
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 5px;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+
+}
+button:disabled {
+	background-color: #AAAAAA; /* Green */
+    color: white;
+}
+button:disabled:hover {
+	background-color: #AAAAAA;
+}
+button:hover {
+	background-color: #4CAF50; /* Green */
+    color: white;
+}
+#reset:hover {
+	background-color: #C74949; /*red*/
+	color: white;
 }
