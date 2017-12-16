@@ -1,6 +1,6 @@
 function calculateHamSandwich()
 {
-
+	console.log('hi');
 }
 
 function sortBySlope(pointData1, pointData2)
