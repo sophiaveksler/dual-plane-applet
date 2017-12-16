@@ -10,6 +10,8 @@ var x_min = -2;
 var x_max = 2;
 var y_min = -10;
 var y_max = 10;
+var x_scale = 50.0;
+var y_scale = 50.0;
 
 // Canvas Variables
 var primalCanvas = new fabric.Canvas('ham-plane');
