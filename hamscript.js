@@ -1,3 +1,15 @@
+// -----------------------------------------
+// -----------------------------------------
+// Variable and Data Section Sections
+// -----------------------------------------
+// -----------------------------------------
+
+// Global Canvas Constants
+var x_min = -2;
+var x_max = 2;
+var y_min = -10;
+var y_max = 10;
+
 // Canvas Variables
 var primalCanvas = new fabric.Canvas('ham-plane');
 var dualCanvas = new fabric.Canvas('ham-plane-result');
@@ -8,6 +20,23 @@ var drawingMode = true;
 var width = primalCanvas.width;
 var height = primalCanvas.height;
 
+// Point Data Structure
+function customPointDataStructure()
+{
+	this.x = 0;
+	this.y = 0;
+	this.colorName = 'blue';
+	this.modifiedColorName = 'green';
+	this.ID = 0;
+	this.fabricPoint = 'fabricPoint';
+	this.fabricLine = 'fabricLine';
+}
+customPointDataStructure.prototype = {
+	doX : function() {}
+}
+
+var point = new customPointDataStructure();
+
 // Sets
 var redSet = new Set();
 var blueSet = new Set();
@@ -16,24 +45,14 @@ var totalSet = new Set();
 // Other Variables
 var color = 0;
 
-// Point Data Structure
-var point =
-{
-	x:0,
-	y:0,
-	colorName:'blue',
-	fabricPoint:'fabricPoint',
-	fabricLine:'fabricLine'
-};
-
-// Global Constants
-var x_min = -2;
-var x_max = 2;
-var y_min = -10;
-var y_max = 10;
+// -----------------------------------------
+// -----------------------------------------
+// Code Sections
+// -----------------------------------------
+// -----------------------------------------
 
 // -----------------------------------------
-// Events and Functions
+// Adding Points
 // -----------------------------------------
 
 primalCanvas.on('mouse:down', function (event)
@@ -42,6 +61,8 @@ primalCanvas.on('mouse:down', function (event)
 	{
 		primalCanvas.selection = false;
 
+		// Create point
+		point = new customPointDataStructure();
 		fillPointData(event);
         
         // Add to color sets
@@ -57,11 +78,6 @@ primalCanvas.on('mouse:down', function (event)
 
         // Add to totalSet
         totalSet.add(point);
-
-        // Add line to dual canvas
-        [a, b] = scalePrimalPointData(point.x, point.y);
-		point.fabricLine = createFabricLine(a,b,point.colorName,point.fabricPoint.id);
-		dualCanvas.add(point.fabricLine);
     }
 });
 
@@ -85,7 +101,20 @@ function fillPointData(event)
 	}
 
 	// Get Fabric Point
-   	point.fabricPoint = new fabric.Circle({radius: 3, fill:point.colorName, left: point.x, top: point.y, id: primalCanvas.getObjects().length});
+   	point.fabricPoint = new fabric.Circle(	{
+   												radius: 3,
+   												fill: point.colorName,
+   												left: point.x,
+   												top: point.y,
+   												id: primalCanvas.getObjects().length
+   											});
+
+	// Get Fabric Line
+    [a, b] = scalePrimalPointData(point.x, point.y);
+	point.fabricLine = createFabricLine(a,b,point.colorName,point.fabricPoint.id);
+
+	// get overall point id
+	point.ID = point.fabricPoint.id;
 }
 
 function scalePrimalPointData(x, y)
@@ -119,22 +148,13 @@ function createFabricLine(a,b,colorName,pointID)
 	return line;
 }
 
-function replaceAllLinesOnDualCanvas()
-{
-	dualCanvas.clear();
-}
-
-function replaceAllPointsOnPrimalCanvas()
-{
-	primalCanvas.clear();
-}
-
 primalCanvas.on('mouse:up', function (event)
 {
 	if (drawingMode)
 	{
 		primalCanvas.selection = true;
 	  	primalCanvas.add(point.fabricPoint)
+		dualCanvas.add(point.fabricLine);
 	}
 });
 
@@ -148,6 +168,51 @@ primalCanvas.on('selection:cleared', function()
     drawingMode = true;      
 });
 
+// -----------------------------------------
+// Changing Display of Data Functions
+// -----------------------------------------
+
+function replaceAllPointsOnPrimalCanvas()
+{
+	primalCanvas.clear();
+	totalSet.forEach(function callback(value1, value2, totalSet)
+	{
+		primalCanvas.add(value1.fabricPoint);
+	});
+}
+
+function replaceAllLinesOnDualCanvas()
+{
+	dualCanvas.clear();
+	totalSet.forEach(function callback(value1, value2, totalSet)
+	{
+		dualCanvas.add(value1.fabricLine);
+	});
+}
+
+// -----------------------------------------
+// Modify Points and Lines Data Functions
+// -----------------------------------------
+
+function changePointColor(point, newColorName)
+{
+	modifiedColorName = newColorName;
+	//canvas.id(point.ID).color = newColorName
+	point.fabricPoint.stroke = newColorName;
+	point.fabricLine.fill = newColorName;
+}
+
+function returnPointColorToSet(point)
+{
+	//canvas.id(point.ID).color = point.colorName
+	point.fabricPoint.stroke = point.colorName;
+	point.fabricLine.fill = point.colorName;
+}
+
+// -----------------------------------------
+// Button Click Events
+// -----------------------------------------
+
 $('#reset').click(function ()
 {
 	primalCanvas.drawingMode = true;
@@ -155,6 +220,7 @@ $('#reset').click(function ()
 	dualCanvas.clear();
 	redSet = new Set();
 	blueSet = new Set();
+	totalSet = new Set();
     $('#ham-calculator').text("Calculate Ham Sandwich Cut");
 	$('#ham-calculator').attr("disabled", false);
 })
@@ -162,8 +228,6 @@ $('#reset').click(function ()
 
 $('#ham-calculator').click(function()
 {
-	console.log(blueSet.size)
-	console.log(redSet.size)
 	if (blueSet.size == 0 || redSet.size == 0)
 	{
 		alert("At least 2 points need to be present in the primal plane in order to calculate the Ham Sandwich Cut.")
