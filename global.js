@@ -13,6 +13,7 @@ var y_max = 10;
 
 // Canvas Variables
 var primalCanvas = new fabric.Canvas('ham-plane');
+primalCanvas.drawingMode = true;
 var dualCanvas = new fabric.Canvas('ham-plane-result');
 primalCanvas.centeredScaling = true;
 dualCanvas.centeredScaling = true;

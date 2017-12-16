@@ -10,7 +10,7 @@
 // -----------------------------------------
 
 primalCanvas.on('mouse:down', function (event) {
-	if (drawingMode) {
+	if (primalCanvas.drawingMode) {
 		primalCanvas.selection = false;
 
 		// Create point
@@ -87,19 +87,11 @@ function createFabricLine(a,b,colorName,pointID) {
 }
 
 primalCanvas.on('mouse:up', function (event) {
-	if (drawingMode) {
+	if (primalCanvas.drawingMode) {
 		primalCanvas.selection = true;
 		primalCanvas.add(point.fabricPoint);
 		dualCanvas.add(point.fabricLine);
 	}
-});
-
-primalCanvas.on('object:selected', function() {
-	drawingMode = false;
-});
-
-primalCanvas.on('selection:cleared', function() {
-	drawingMode = true;
 });
 
 // -----------------------------------------
