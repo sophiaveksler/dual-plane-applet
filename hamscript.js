@@ -21,8 +21,7 @@ var width = primalCanvas.width;
 var height = primalCanvas.height;
 
 // Point Data Structure
-function customPointDataStructure()
-{
+function customPointDataStructure() {
 	this.x = 0;
 	this.y = 0;
 	this.colorName = 'blue';
@@ -55,10 +54,8 @@ var color = 0;
 // Adding Points
 // -----------------------------------------
 
-primalCanvas.on('mouse:down', function (event)
-{
-	if (drawingMode)
-	{
+primalCanvas.on('mouse:down', function (event) {
+	if (drawingMode) {
 		primalCanvas.selection = false;
 
 		// Create point
@@ -66,14 +63,12 @@ primalCanvas.on('mouse:down', function (event)
 		fillPointData(event);
         
         // Add to color sets
-       	if (point.colorName == 'red')
-       	{
+       	if (point.colorName == 'red') {
         	redSet.add(point.fabricPoint)
-   		}
-        else if (point.colorName == 'blue')
-        {
+   		} else if (point.colorName == 'blue') {
         	blueSet.add(point.fabricPoint)
    		}
+
         point.fabricPoint.selectable = false;
 
         // Add to totalSet
@@ -81,8 +76,7 @@ primalCanvas.on('mouse:down', function (event)
     }
 });
 
-function fillPointData(event)
-{
+function fillPointData(event) {
 	// Get X and Y coordinates
 	var offset = $('#ham-plane').offset();
 	point.x = event.e.clientX - offset.left;
@@ -90,12 +84,9 @@ function fillPointData(event)
 
 	// Get Color
 	point.colorName = 'blue';
-	if (color == 0)
-	{
+	if (color == 0) {
 		color = 1;
-	}
-	else if (color == 1)
-	{
+	} else if (color == 1) {
 		point.colorName = 'red';
 		color = 0;
 	}
@@ -117,8 +108,7 @@ function fillPointData(event)
 	point.ID = point.fabricPoint.id;
 }
 
-function scalePrimalPointData(x, y)
-{
+function scalePrimalPointData(x, y) {
 	var x1, y1;
 
 	x1 = (point.x-(width/2.0))/50.0; // convert to more reasonable coordinates
@@ -127,8 +117,7 @@ function scalePrimalPointData(x, y)
 	return [x1, y1];
 }
 
-function createFabricLine(a,b,colorName,pointID)
-{
+function createFabricLine(a,b,colorName,pointID) {
 	// Get endpoints for the line
 	let x1 = 0;
 	let y1 = (((-width/2.0)/50.0)*a + b )*50 + width/2.0
@@ -148,44 +137,36 @@ function createFabricLine(a,b,colorName,pointID)
 	return line;
 }
 
-primalCanvas.on('mouse:up', function (event)
-{
-	if (drawingMode)
-	{
+primalCanvas.on('mouse:up', function (event) {
+	if (drawingMode) {
 		primalCanvas.selection = true;
-	  	primalCanvas.add(point.fabricPoint)
+	  	primalCanvas.add(point.fabricPoint);
 		dualCanvas.add(point.fabricLine);
 	}
 });
 
-primalCanvas.on('object:selected', function()
-{
-    drawingMode = false;         
+primalCanvas.on('object:selected', function() {
+    drawingMode = false;
 });
 
-primalCanvas.on('selection:cleared', function()
-{  
-    drawingMode = true;      
+primalCanvas.on('selection:cleared', function() {
+    drawingMode = true;
 });
 
 // -----------------------------------------
 // Changing Display of Data Functions
 // -----------------------------------------
 
-function replaceAllPointsOnPrimalCanvas()
-{
+function replaceAllPointsOnPrimalCanvas() {
 	primalCanvas.clear();
-	totalSet.forEach(function callback(value1, value2, totalSet)
-	{
+	totalSet.forEach(function callback(value1, value2, totalSet) {
 		primalCanvas.add(value1.fabricPoint);
 	});
 }
 
-function replaceAllLinesOnDualCanvas()
-{
+function replaceAllLinesOnDualCanvas() {
 	dualCanvas.clear();
-	totalSet.forEach(function callback(value1, value2, totalSet)
-	{
+	totalSet.forEach(function callback(value1, value2, totalSet) {
 		dualCanvas.add(value1.fabricLine);
 	});
 }
@@ -194,16 +175,14 @@ function replaceAllLinesOnDualCanvas()
 // Modify Points and Lines Data Functions
 // -----------------------------------------
 
-function changePointColor(point, newColorName)
-{
+function changePointColor(point, newColorName) {
 	modifiedColorName = newColorName;
 	//canvas.id(point.ID).color = newColorName
 	point.fabricPoint.stroke = newColorName;
 	point.fabricLine.fill = newColorName;
 }
 
-function returnPointColorToSet(point)
-{
+function returnPointColorToSet(point) {
 	//canvas.id(point.ID).color = point.colorName
 	point.fabricPoint.stroke = point.colorName;
 	point.fabricLine.fill = point.colorName;
@@ -213,8 +192,7 @@ function returnPointColorToSet(point)
 // Button Click Events
 // -----------------------------------------
 
-$('#reset').click(function ()
-{
+$('#reset').click(function () {
 	primalCanvas.drawingMode = true;
 	primalCanvas.clear();
 	dualCanvas.clear();
@@ -226,10 +204,8 @@ $('#reset').click(function ()
 })
 
 
-$('#ham-calculator').click(function()
-{
-	if (blueSet.size == 0 || redSet.size == 0)
-	{
+$('#ham-calculator').click(function() {
+	if (blueSet.size == 0 || redSet.size == 0) {
 		alert("At least 2 points need to be present in the primal plane in order to calculate the Ham Sandwich Cut.")
 		return;
 	}
