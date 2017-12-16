@@ -1,0 +1,23 @@
+[x, y] = scalePrimalPointData(point.left, point.top);
+
+replaced
+//let a = (point.left-(width/2.0))/50.0; // convert to more reasonable coordinates
+//let b = ((height - point.top) - (height/2.0))/50.0;
+
+addLineToDualCanvas(x,y,colorName,point.id);
+
+replaced
+//let x1 = 0;
+//let y1 = (((-width/2.0)/50.0)*a + b )*50 + width/2.0
+//let x2 = width;
+//let y2 = (((width/2.0)/50.0)*a + b )*50 + width/2.0;
+////y = a*x - b; 
+//
+//line = new fabric.Line([x1, y1, x2, y2],{
+//	stroke: colorName,
+//	fill: colorName, 
+//	strokeWidth: 3,
+//	id: point.id
+//})
+//line.selectable = false;
+//dualCanvas.add(line);
