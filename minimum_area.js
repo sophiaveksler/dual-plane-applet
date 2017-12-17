@@ -293,6 +293,7 @@ function visualizePointChecking(point1, point2, checkingHeightPoint) {
 	pointCheckStart(point1, point2, checkingHeightPoint);
 
 	//sleep here
+	sleep(500);
 	
 	pointCheckEnd(point1, point2, checkingHeightPoint);
 }
