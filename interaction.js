@@ -214,7 +214,6 @@ function replaceAllLinesOnDualCanvas() {
 function changePointColor(point, newColorName) {
 	modifiedColorName = newColorName;
 
-	console.log('new color: ' + newColorName);
 	point.fabricPoint.stroke = newColorName;
 	point.fabricPoint.fill = newColorName;
 	point.fabricLine.stroke = newColorName;
@@ -264,6 +263,7 @@ $('#reset').click(function () {
 	totalSet = new Array();
 	intersectionSet = new Map();
 	dcel = new Map();
+	threePointsArray = new Array();
 	$('#slab-calculator').text("Calculate 3-Slab");
 	$('#slab-calculator').attr("disabled", false);
 })
@@ -284,30 +284,11 @@ $('#slab-calculator').click(function() {
 	var point3 = new customPointDataStructure();
 
 	getAllIntersections();
-	[point1, point2, point3] = findTriangle();
+	createThreePointsArray();
+	//[point1, point2, point3] = 
+
+	findTriangle(0, null, null, null, null, null);
 	primalCanvas.drawingMode = false;
-
-	if(point1 != null) {
-		totalSet.forEach(function(element) {
-			returnPointColorToSet(element);
-		});
-
-		changePointColor(point1, 'green');
-		changePointColor(point2, 'green');
-		changePointColor(point3, 'green');
-
-		var slope1 = (point1.y - point2.y) / (point1.x - point2.x);
-		var intercept1 = point1.y - slope1 * point1.x;
-		var slope2 = slope1;
-		var intercept2 = point3.y - slope2 * point3.x;
-		console.log(slope1 + ',' + intercept1);
-		console.log(slope2 + ',' + intercept2);
-		primalCanvas.add(createPrimalFabricLine(slope1, intercept1, 'black', 999998));
-		primalCanvas.add(createPrimalFabricLine(slope2, intercept2, 'black', 999999));
-	} else {
-		console.log('found null set of points');
-	}
-
 })
 
 

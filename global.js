@@ -87,6 +87,21 @@ customPointDataStructure.prototype = {
 	doX : function() {}
 }
 
+// Three Points Structure for Checking in the End
+// intersection data structure
+function threePoints() {
+	this.point1 = 'point1';
+	this.point2 = 'point2';
+	this.point3 = 'point3';
+	this.a = 0;
+	this.b = 0;
+}
+threePoints.prototype = {
+	doX: function() {}
+}
+
+var threePointsArray = new Array();
+
 // Other Variables
 var color = 0;
 

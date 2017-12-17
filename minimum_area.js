@@ -1,29 +1,10 @@
-function findTriangle(point1, point2) {
+function createThreePointsArray() {
 	// initial variables
 	var height = null;
 	var area = null;
 	var point1 = new customPointDataStructure();
 	var point2 = new customPointDataStructure();
 	var point3 = new customPointDataStructure();
-	var point1ColorSave = 'blue';
-	var point2ColorSave = 'blue';
-	var point3ColorSave = 'blue';
-
-	// functions for changing colors
-	function savePointColors() {
-		point1ColorSave = point1.colorName;
-		point2ColorSave = point2.colorName;
-		point3ColorSave = point3.colorName;
-		point1.colorName = 'Aquamarine';
-		point2.colorName = 'Aquamarine';
-		point3.colorName = 'Aquamarine';
-	}
-
-	function returnPointColors() {
-		point1.colorName = point1ColorSave;
-		point2.colorName = point2ColorSave;
-		point3.colorName = point3ColorSave;
-	}
 
 	// for every set of two points
 	for (let i = 0; i < totalSet.length; i++) {
@@ -61,97 +42,115 @@ function findTriangle(point1, point2) {
 			var b = null;
 			[a, b] = dcelValue1.intersection;
 
-			if(a != null && a != null) {
-				if(index1LastPoint != null) {
-					visualizePointChecking(totalSet[i], totalSet[j], index1LastPoint);
-					if(height == null || height > threeSlabHeight(index1LastPoint, a, b)) {
-						console.log('height changed: ' + height + ' -> ' + threeSlabHeight(index1LastPoint, a, b));
-						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index1LastPoint));
+			var closestPoints = [index1LastPoint, index1NextPoint, index2LastPoint, index2NextPoint];
 
-						// Update Data
-						height = threeSlabHeight(index1LastPoint, a, b);
-						area = triangleArea(totalSet[i], totalSet[j], index1LastPoint);
-
-						// Handle Colors and Saving of New Points
-						returnPointColors();
-						point1 = totalSet[i];
-						point2 = totalSet[j];
-						point3 = index1LastPoint;
-						savePointColors();
-					} else {
-						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index1LastPoint));
-					}
-				}
-				
-				if(index1NextPoint != null) {
-					visualizePointChecking(totalSet[i], totalSet[j], index1NextPoint);
-					if(height == null || height > threeSlabHeight(index1NextPoint, a, b)) {
-						console.log('height changed: ' + height + ' -> ' + threeSlabHeight(index1NextPoint, a, b));
-						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index1NextPoint));
-
-						// Update Data
-						height = threeSlabHeight(index1NextPoint, a, b);
-						area = triangleArea(totalSet[i], totalSet[j], index1NextPoint);
-
-						// Handle Colors and Saving of New Points
-						returnPointColors();
-						point1 = totalSet[i];
-						point2 = totalSet[j];
-						point3 = index1NextPoint;
-						savePointColors();
-					} else {
-						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index1NextPoint));
-					}
-				}
-
-				if(index2LastPoint != null) {
-					visualizePointChecking(totalSet[i], totalSet[j], index2LastPoint);
-					if(height == null || height > threeSlabHeight(index2LastPoint, a, b)) {
-						console.log('height changed: ' + height + ' -> ' + threeSlabHeight(index2LastPoint, a, b));
-						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index2LastPoint));
-
-						// Update Data
-						height = threeSlabHeight(index2LastPoint, a, b);
-						area = triangleArea(totalSet[i], totalSet[j], index2LastPoint);
-
-						// Handle Colors and Saving of New Points
-						returnPointColors();
-						point1 = totalSet[i];
-						point2 = totalSet[j];
-						point3 = index2LastPoint;
-						savePointColors();
-					} else {
-						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index2LastPoint));
-					}
-				}
-
-				if(index2NextPoint != null) {
-					visualizePointChecking(totalSet[i], totalSet[j], index2NextPoint);
-					if(height == null || height > threeSlabHeight(index2NextPoint, a, b)) {
-						console.log('height changed: ' + height + ' -> ' + threeSlabHeight(index2NextPoint, a, b));
-						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index2NextPoint));
-
-						// Update Data
-						height = threeSlabHeight(index2NextPoint, a, b);
-						area = triangleArea(totalSet[i], totalSet[j], index2NextPoint);
-
-						// Handle Colors and Saving of New Points
-						returnPointColors();
-						point1 = totalSet[i];
-						point2 = totalSet[j];
-						point3 = index2NextPoint;
-						savePointColors();
-					} else {
-						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index2NextPoint));
-					}
+			for(let k = 0; k < closestPoints.length; k++) {
+				if(closestPoints[k] != null) {
+					var theseThreePoints = new threePoints();
+					theseThreePoints.a = a;
+					theseThreePoints.b = b;
+					theseThreePoints.point1 = totalSet[i];
+					theseThreePoints.point2 = totalSet[j];
+					theseThreePoints.point3 = closestPoints[k];
+					threePointsArray.push(theseThreePoints);
 				}
 			}
 		}
 	}
 
-	returnPointColors();
-	return [point1, point2, point3];
 }
+
+var point1ColorSave = 'blue';
+var point2ColorSave = 'blue';
+var point3ColorSave = 'blue';
+
+function findTriangle(i, height, area, point1, point2, point3) {	// functions for changing colors
+	function savePointColors() {
+		point1ColorSave = point1.colorName;
+		point2ColorSave = point2.colorName;
+		point3ColorSave = point3.colorName;
+		point1.colorName = 'Aquamarine';
+		point2.colorName = 'Aquamarine';
+		point3.colorName = 'Aquamarine';
+	}
+
+	function returnPointColors() {
+		if(point1 == null || point2 == null || point3 == null) {
+			return;
+		}
+		point1.colorName = point1ColorSave;
+		point2.colorName = point2ColorSave;
+		point3.colorName = point3ColorSave;
+	}
+
+	if(i < threePointsArray.length) {
+		threePointsArray[i].point1.fabricPoint.animate('stroke',threePointsArray[i].point1.colorName, {
+		   //onChange: primalCanvas.renderAll.bind(primalCanvas),
+		   onChange: function() {
+				changePointColor(threePointsArray[i].point1, 'Aquamarine');
+				changePointColor(threePointsArray[i].point2, 'Aquamarine');
+				changePointColor(threePointsArray[i].point3, 'orchid');
+		   },
+		   duration: 750,
+		   onComplete: function() {
+				returnPointColorToSet(threePointsArray[i].point1);
+				returnPointColorToSet(threePointsArray[i].point2);
+				returnPointColorToSet(threePointsArray[i].point3);
+				
+				//visualizePointChecking(totalSet[i], totalSet[j], closestPoints[k]);
+				if(threePointsArray[i].a != null && threePointsArray[i].b != null && (height == null || height > threeSlabHeight(threePointsArray[i].point3, threePointsArray[i].a, threePointsArray[i].b))) {
+					console.log('height changed: ' + height + ' -> ' + threeSlabHeight(threePointsArray[i].point3, threePointsArray[i].a, threePointsArray[i].b));
+					console.log('area   changed: ' + area   + ' -> ' + triangleArea(threePointsArray[i].point1, threePointsArray[i].point2, threePointsArray[i].point3));
+
+					// Update Data
+					height = threeSlabHeight(threePointsArray[i].point3, threePointsArray[i].a, threePointsArray[i].b);
+					area = triangleArea(threePointsArray[i].point1, threePointsArray[i].point2, threePointsArray[i].point3);
+
+					// Handle Colors and Saving of New Points
+					returnPointColors();
+					point1 = threePointsArray[i].point1;
+					point2 = threePointsArray[i].point2;
+					point3 = threePointsArray[i].point3;
+					savePointColors();
+				} else {
+					console.log('no a   change : ' + area   + ' -- ' + triangleArea(threePointsArray[i].point1, threePointsArray[i].point2, threePointsArray[i].point1));
+				}
+
+				// recursion on next one
+				returnPointColors();
+				return findTriangle(i + 1, height, area, point1, point2, point3);
+		   }
+		});
+	} else {
+		returnPointColors();
+		console.log('RETURN:: (' + point1.x + ',' + point1.y + ') ; ( ' + point2.x + ',' + point2.y + ') ; (' + point3.x + ',' + point3.y + ')');
+
+		if(point1 != null) {
+			totalSet.forEach(function(element) {
+				returnPointColorToSet(element);
+			});
+
+			console.log('new color: ' + 'green');
+			changePointColor(point1, 'green');
+			changePointColor(point2, 'green');
+			changePointColor(point3, 'green');
+
+			var slope1 = (point1.y - point2.y) / (point1.x - point2.x);
+			var intercept1 = point1.y - slope1 * point1.x;
+			var slope2 = slope1;
+			var intercept2 = point3.y - slope2 * point3.x;
+			console.log(slope1 + ',' + intercept1);
+			console.log(slope2 + ',' + intercept2);
+			primalCanvas.add(createPrimalFabricLine(slope1, intercept1, 'black', 999998));
+			primalCanvas.add(createPrimalFabricLine(slope2, intercept2, 'black', 999999));
+		} else {
+			console.log('found null set of points');
+		}
+
+		return [point1, point2, point3];
+	}
+}
+
 
 function threeSlabHeight(point, a, b) {
 	var pointAboveOrBelow = point.dualSlope * a + point.dualIntercept;
@@ -293,19 +292,35 @@ function visualizePointChecking(point1, point2, checkingHeightPoint) {
 	pointCheckStart(point1, point2, checkingHeightPoint);
 
 	//sleep here
-	sleep(500);
+	//sleep(500);
 	
-	pointCheckEnd(point1, point2, checkingHeightPoint);
+	//pointCheckEnd(point1, point2, checkingHeightPoint);
 }
 
 function pointCheckStart(point1, point2, checkingHeightPoint) {
-	changePointColor(point1, 'slateBlue');
-	changePointColor(point2, 'slateBlue');
-	changePointColor(checkingHeightPoint, 'darkmagenta');
+	//changePointColor(point1, 'slateBlue');
+	//changePointColor(point2, 'slateBlue');
+	//changePointColor(checkingHeightPoint, 'darkmagenta');
+
+	point1.fabricPoint.animate('stroke',point.colorName, {
+	   //onChange: primalCanvas.renderAll.bind(primalCanvas),
+	   onChange: function() {
+			changePointColor(point1, 'slateBlue');
+			changePointColor(point2, 'slateBlue');
+			changePointColor(checkingHeightPoint, 'darkmagenta');
+	   },
+	   duration: 1000,
+	   onComplete: function() {
+			returnPointColorToSet(point1);
+			returnPointColorToSet(point2);
+			returnPointColorToSet(checkingHeightPoint);
+	   }
+	});
+
 }
 
 function pointCheckEnd(point1, point2, checkingHeightPoint) {
-	returnPointColorToSet(point1);
-	returnPointColorToSet(point2);
-	returnPointColorToSet(checkingHeightPoint);
+	//returnPointColorToSet(point1);
+	//returnPointColorToSet(point2);
+	//returnPointColorToSet(checkingHeightPoint);
 }
