@@ -47,10 +47,22 @@ customPointDataStructure.prototype = {
 	doX : function() {}
 }
 
+// intersection data structure
+function intersection() {
+	this.point1 = 'point1';
+	this.point2 = 'point2';
+	this.dual_x = 0;
+	this.dual_y = 0;
+	this.fabricPoint = 'fabricPoint';
+}
+
 var point = new customPointDataStructure();
 
-// Set
+// Set of points/lines
 var totalSet = new Array();
+
+//set of intersections
+var intersectionSet = new Array();
 
 // Other Variables
 var color = 0;
