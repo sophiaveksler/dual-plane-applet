@@ -285,7 +285,6 @@ $('#slab-calculator').click(function() {
 
 	getAllIntersections();
 	createThreePointsArray();
-	//[point1, point2, point3] = 
 
 	findTriangle(0, null, null, null, null, null);
 	primalCanvas.drawingMode = false;

@@ -91,7 +91,7 @@ function findTriangle(i, height, area, point1, point2, point3) {	// functions fo
 				changePointColor(threePointsArray[i].point2, 'Aquamarine');
 				changePointColor(threePointsArray[i].point3, 'orchid');
 		   },
-		   duration: 750,
+		   duration: 500,
 		   onComplete: function() {
 				returnPointColorToSet(threePointsArray[i].point1);
 				returnPointColorToSet(threePointsArray[i].point2);
@@ -134,7 +134,7 @@ function findTriangle(i, height, area, point1, point2, point3) {	// functions fo
 			changePointColor(point1, 'green');
 			changePointColor(point2, 'green');
 			changePointColor(point3, 'green');
-
+			$('#slab-calculator').text("Calculation Complete");
 			var slope1 = (point1.y - point2.y) / (point1.x - point2.x);
 			var intercept1 = point1.y - slope1 * point1.x;
 			var slope2 = slope1;
