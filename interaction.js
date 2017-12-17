@@ -258,7 +258,7 @@ $('#ham-calculator').click(function() {
 
 
 	getAllIntersections();
-	// primalCanvas.drawingMode = false;
+	primalCanvas.drawingMode = false;
 	// [a,b] = calculateHamSandwich();
 	// if (a == -1000) {
 	// 	return;
