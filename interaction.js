@@ -201,6 +201,11 @@ function replaceAllLinesOnDualCanvas() {
 	totalSet.forEach(function(element) {
 		dualCanvas.add(element.fabricLine);
 	});
+	var values = Array.from(intersectionSet.values());
+	console.log(values);
+	values.forEach(function(element) {
+		dualCanvas.add(element);
+	});
 }
 
 // -----------------------------------------
@@ -241,7 +246,7 @@ $('#reset').click(function () {
 	primalCanvas.clear();
 	dualCanvas.clear();
 	totalSet = new Array();
-	intersectionSet = new Array();
+	intersectionSet = new Map();
 	dcel = new Map();
 	$('#ham-calculator').text("Calculate all Intersections!");
 	$('#ham-calculator').attr("disabled", false);
@@ -267,9 +272,25 @@ $('#ham-calculator').click(function() {
 	primalCanvas.drawingMode = false;
 
 	if(point1 != null) {
+		totalSet.forEach(function(element) {
+			element.fabricPoint.stroke = element.colorName;
+			element.fabricPoint.fill = element.colorName;
+			element.fabricLine.stroke = element.colorName;
+			element.fabricLine.fill = element.colorName;
+		});
+
 		changePointColor(point1, 'green');
 		changePointColor(point2, 'green');
 		changePointColor(point3, 'green');
+
+		var slope1 = (point1.y - point2.y) / (point1.x - point2.x);
+		var intercept1 = point1.y - slope1 * point1.x;
+		var slope2 = slope1;
+		var intercept2 = point3.y - slope2 * point3.x;
+		console.log(slope1 + ',' + intercept1);
+		console.log(slope2 + ',' + intercept2);
+		primalCanvas.add(createPrimalFabricLine(slope1, intercept1, 'black', 999998));
+		primalCanvas.add(createPrimalFabricLine(slope2, intercept2, 'black', 999999));
 	} else {
 		console.log('found null set of points');
 	}

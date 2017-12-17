@@ -38,7 +38,7 @@ function customPointDataStructure() {
 	this.dual_slope = 0;
 	this.dual_intercept = 0;
 	this.colorName = 'blue';
-	this.modifiedColorName = 'green';
+	this.modifiedColorName = 'blue';
 	this.ID = 0;
 	this.fabricPoint = 'fabricPoint';
 	this.fabricLine = 'fabricLine';
@@ -62,7 +62,7 @@ var point = new customPointDataStructure();
 var totalSet = new Array();
 
 // Set of intersections
-var intersectionSet = new Array();
+var intersectionSet = new Map();
 
 // DCEL stuff
 var dcel = new Map();

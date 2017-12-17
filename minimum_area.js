@@ -14,9 +14,9 @@ function findTriangle(point1, point2) {
 		point1ColorSave = point1.colorName;
 		point2ColorSave = point2.colorName;
 		point3ColorSave = point3.colorName;
-		point1.colorName = 'green';
-		point2.colorName = 'green';
-		point3.colorName = 'green';
+		point1.colorName = 'Aquamarine';
+		point2.colorName = 'Aquamarine';
+		point3.colorName = 'Aquamarine';
 	}
 
 	function returnPointColors() {
@@ -148,7 +148,8 @@ function findTriangle(point1, point2) {
 			}
 		}
 	}
-
+	
+	returnPointColors();
 	return [point1, point2, point3];
 }
 
@@ -229,13 +230,26 @@ function getAllIntersections() {
 			//}
 		}
 	}
-	console.log(dcel.entries());
+	//console.log(dcel.entries());
 	//console.log(intersectionSet);
 }
 
 
 function findIntersection(point1, point2)
 {
+	function pointIDHash(ID1, ID2) {
+		var lesserID = null;
+		var greaterID = null;
+		if(ID1 < ID2) {
+			lesserID = ID1;
+			greaterID = ID2;
+		} else {
+			lesserID = ID2;
+			greaterID = ID1;
+		}
+		return lesserID * Math.PI + greaterID;
+	}
+
 	let a1 = point1.dualSlope;
 	let b1 = point1.dualIntercept;
 	let a2 = point2.dualSlope;
@@ -264,10 +278,14 @@ function findIntersection(point1, point2)
 											});
 	p.selectable=false;
 
-	dualCanvas.add(p);
-
 	interS.fabricPoint = p;
-	intersectionSet.push(interS);
+	if ( !(pointIDHash(point1.ID, point2.ID) in intersectionSet)) {
+		dualCanvas.add(p);
+		//dcel.set(dcelIndex.simpleHash(), dcelValue);
+		var hashID = pointIDHash(point1.ID, point2.ID);
+		intersectionSet.set(hashID, p);
+	}
+	//intersectionSet.set(interS);
 	return [intersectionA, intersectionB];
 }
 
