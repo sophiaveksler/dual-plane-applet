@@ -148,7 +148,7 @@ function findTriangle(point1, point2) {
 			}
 		}
 	}
-	
+
 	returnPointColors();
 	return [point1, point2, point3];
 }
@@ -289,14 +289,21 @@ function findIntersection(point1, point2)
 	return [intersectionA, intersectionB];
 }
 
-function visualizePointChecking(point1, point2, checkingHeightPoint)
-{
-	changePointColor(point1, 'slateBlue');
-	changePointColor(point2, 'slateBlue');
-	changePointColor(checkingHeightPoint, 'darkmagenta');
+function visualizePointChecking(point1, point2, checkingHeightPoint) {
+	pointCheckStart(point1, point2, checkingHeightPoint);
 
 	//sleep here
 	
+	pointCheckEnd(point1, point2, checkingHeightPoint);
+}
+
+function pointCheckStart(point1, point2, checkingHeightPoint) {
+	changePointColor(point1, 'slateBlue');
+	changePointColor(point2, 'slateBlue');
+	changePointColor(checkingHeightPoint, 'darkmagenta');
+}
+
+function pointCheckEnd(point1, point2, checkingHeightPoint) {
 	returnPointColorToSet(point1);
 	returnPointColorToSet(point2);
 	returnPointColorToSet(checkingHeightPoint);

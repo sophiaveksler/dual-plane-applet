@@ -214,14 +214,23 @@ function replaceAllLinesOnDualCanvas() {
 function changePointColor(point, newColorName) {
 	modifiedColorName = newColorName;
 
+	console.log('new color: ' + newColorName);
 	point.fabricPoint.stroke = newColorName;
 	point.fabricPoint.fill = newColorName;
 	point.fabricLine.stroke = newColorName;
 	point.fabricLine.fill = newColorName;
+	primalCanvas.item(point.ID).stroke = newColorName;
+	primalCanvas.item(point.ID).fill = newColorName;
+	primalCanvas.item(point.ID).dirty = true;
+	primalCanvas.renderAll();
+	dualCanvas.item(point.ID).stroke = newColorName;
+	dualCanvas.item(point.ID).fill = newColorName;
+	dualCanvas.item(point.ID).dirty = true;
+	dualCanvas.renderAll();
 
 	// redraw everything
-	replaceAllPointsOnPrimalCanvas();
-	replaceAllLinesOnDualCanvas();
+	//replaceAllPointsOnPrimalCanvas();
+	//replaceAllLinesOnDualCanvas();
 
 }
 
@@ -230,10 +239,18 @@ function returnPointColorToSet(point) {
 	point.fabricPoint.fill = point.colorName;
 	point.fabricLine.stroke = point.colorName;
 	point.fabricLine.fill = point.colorName;
+	primalCanvas.item(point.ID).stroke = point.colorName;
+	primalCanvas.item(point.ID).fill = point.colorName;
+	primalCanvas.item(point.ID).dirty = true;
+	primalCanvas.renderAll();
+	dualCanvas.item(point.ID).stroke = point.colorName;
+	dualCanvas.item(point.ID).fill = point.colorName;
+	dualCanvas.item(point.ID).dirty = true;
+	dualCanvas.renderAll();
 
 	// redraw everything
-	replaceAllPointsOnPrimalCanvas();
-	replaceAllLinesOnDualCanvas();
+	//replaceAllPointsOnPrimalCanvas();
+	//replaceAllLinesOnDualCanvas();
 }
 
 // -----------------------------------------
@@ -272,10 +289,7 @@ $('#slab-calculator').click(function() {
 
 	if(point1 != null) {
 		totalSet.forEach(function(element) {
-			element.fabricPoint.stroke = element.colorName;
-			element.fabricPoint.fill = element.colorName;
-			element.fabricLine.stroke = element.colorName;
-			element.fabricLine.fill = element.colorName;
+			returnPointColorToSet(element);
 		});
 
 		changePointColor(point1, 'green');
