@@ -242,6 +242,7 @@ $('#reset').click(function () {
 	dualCanvas.clear();
 	totalSet = new Array();
 	intersectionSet = new Array();
+	dcel = new Map();
 	$('#ham-calculator').text("Calculate all Intersections!");
 	$('#ham-calculator').attr("disabled", false);
 })
