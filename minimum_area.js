@@ -69,6 +69,7 @@ function findIntersection(point1, point2)
 												top: yB - 5,
 											});
 	p.selectable=false;
+
 	dualCanvas.add(p);
 
 	interS.fabricPoint = p;
