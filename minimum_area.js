@@ -44,66 +44,58 @@ function findTriangle(point1, point2) {
 
 			if(a != null && a != null) {
 				if(index1LastPoint != null) {
-					var pointAboveOrBelow = index1LastPoint.dualSlope * a + index1LastPoint.dualIntercept;
-					if(height == null || height > Math.abs(b - pointAboveOrBelow)) {
-						console.log('height changed: ' + height + ' -> ' + Math.abs(b - pointAboveOrBelow));
-						console.log('area   changed: ' + area   + ' -> ' + triangleSize(totalSet[i], totalSet[j], index1LastPoint));
-						height = Math.abs(b - pointAboveOrBelow);
-						area = triangleSize(totalSet[i], totalSet[j], index1LastPoint);
+					if(height == null || height > minAreaHeight(index1LastPoint, a, b)) {
+						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index1LastPoint, a, b));
+						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index1LastPoint));
+						height = minAreaHeight(index1LastPoint, a, b);
+						area = triangleArea(totalSet[i], totalSet[j], index1LastPoint);
 						point1 = totalSet[i];
 						point2 = totalSet[j];
 						point3 = index1LastPoint;
 					} else {
-						//console.log('no h   change : ' + height + ' -- ' + Math.abs(b - pointAboveOrBelow));
-						console.log('no a   change : ' + area   + ' -- ' + triangleSize(totalSet[i], totalSet[j], index1LastPoint));
+						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index1LastPoint));
 					}
 				}
 				
 				if(index1NextPoint != null) {
-					var pointAboveOrBelow = index1NextPoint.dualSlope * a + index1NextPoint.dualIntercept;
-					if(height == null || height > Math.abs(b - pointAboveOrBelow)) {
-						console.log('height changed: ' + height + ' -> ' + Math.abs(b - pointAboveOrBelow));
-						console.log('area   changed: ' + area   + ' -> ' + triangleSize(totalSet[i], totalSet[j], index1NextPoint));
-						height = Math.abs(b - pointAboveOrBelow);
-						area = triangleSize(totalSet[i], totalSet[j], index1NextPoint);
+					if(height == null || height > minAreaHeight(index1NextPoint, a, b)) {
+						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index1NextPoint, a, b));
+						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index1NextPoint));
+						height = minAreaHeight(index1NextPoint, a, b);
+						area = triangleArea(totalSet[i], totalSet[j], index1NextPoint);
 						point1 = totalSet[i];
 						point2 = totalSet[j];
 						point3 = index1NextPoint;
 					} else {
-						//console.log('no h   change : ' + height + ' -- ' + Math.abs(b - pointAboveOrBelow));
-						console.log('no a   change : ' + area   + ' -- ' + triangleSize(totalSet[i], totalSet[j], index1NextPoint));
+						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index1NextPoint));
 					}
 				}
 
 				if(index2LastPoint != null) {
-					var pointAboveOrBelow = index2LastPoint.dualSlope * a + index2LastPoint.dualIntercept;
-					if(height == null || height > Math.abs(b - pointAboveOrBelow)) {
-						console.log('height changed: ' + height + ' -> ' + Math.abs(b - pointAboveOrBelow));
-						console.log('area   changed: ' + area   + ' -> ' + triangleSize(totalSet[i], totalSet[j], index2LastPoint));
-						height = Math.abs(b - pointAboveOrBelow);
-						area = triangleSize(totalSet[i], totalSet[j], index2LastPoint);
+					if(height == null || height > minAreaHeight(index2LastPoint, a, b)) {
+						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index2LastPoint, a, b));
+						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index2LastPoint));
+						height = minAreaHeight(index2LastPoint, a, b);
+						area = triangleArea(totalSet[i], totalSet[j], index2LastPoint);
 						point1 = totalSet[i];
 						point2 = totalSet[j];
 						point3 = index2LastPoint;
 					} else {
-						//console.log('no h   change : ' + height + ' -- ' + Math.abs(b - pointAboveOrBelow));
-						console.log('no a   change : ' + area   + ' -- ' + triangleSize(totalSet[i], totalSet[j], index2LastPoint));
+						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index2LastPoint));
 					}
 				}
 
 				if(index2NextPoint != null) {
-					var pointAboveOrBelow = index2NextPoint.dualSlope * a + index2NextPoint.dualIntercept;
-					if(height == null || height > Math.abs(b - pointAboveOrBelow)) {
-						console.log('height changed: ' + height + ' -> ' + Math.abs(b - pointAboveOrBelow));
-						console.log('area   changed: ' + area   + ' -> ' + triangleSize(totalSet[i], totalSet[j], index2NextPoint));
-						height = Math.abs(b - pointAboveOrBelow);
-						area = triangleSize(totalSet[i], totalSet[j], index2NextPoint);
+					if(height == null || height > minAreaHeight(index2NextPoint, a, b)) {
+						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index2NextPoint, a, b));
+						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index2NextPoint));
+						height = minAreaHeight(index2NextPoint, a, b);
+						area = triangleArea(totalSet[i], totalSet[j], index2NextPoint);
 						point1 = totalSet[i];
 						point2 = totalSet[j];
 						point3 = index2NextPoint;
 					} else {
-						//console.log('no h   change : ' + height + ' -- ' + Math.abs(b - pointAboveOrBelow));
-						console.log('no a   change : ' + area   + ' -- ' + triangleSize(totalSet[i], totalSet[j], index2NextPoint));
+						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index2NextPoint));
 					}
 				}
 			}
@@ -113,6 +105,25 @@ function findTriangle(point1, point2) {
 	return [point1, point2, point3];
 }
 
+function threeSlabHeight(point, a, b) {
+	var pointAboveOrBelow = point.dualSlope * a + point.dualIntercept;
+	return Math.abs(b - pointAboveOrBelow);
+}
+
+function minAreaHeight(point, x0, y0) {
+	// for distance(ax + by + c = 0 , (x0,y0))
+	// = abs(a*x0 + b*y0 + c) / sqrt(a^2 + b^2)
+	var a = -point.dualSlope;
+	var b = 1;
+	var c = -point.dualIntercept;
+	var numerator = Math.abs(a*x0 + b*y0 + c);
+	var denominator = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
+	return numerator / denominator;
+}
+
+function triangleArea(a, b, c) {
+	return Math.abs((a.x*(b.y - c.y) + b.x*(c.y - a.y) + c.x*(a.y - b.y))/2.0);
+}
 
 function getAllIntersections() {
 	for (let i = 0; i < totalSet.length; i++) {
@@ -158,7 +169,7 @@ function getAllIntersections() {
 					dcelValue2 = new dcelValueStructure();
 					dcelValue2 = dcel.get(dcelIndex2.simpleHash());
 					if(dcelValue2 == null || dcelValue2 == undefined) {
-						console.log('Cant find: ' + dcelIndex2.ID1 + ',' + dcelIndex2.ID2);
+						console.log('Cant find: ' + dcelIndex2.ID1 + ',' + dcelIndex2.ID2 + ',' + dcelIndex2.simpleHash());
 					} else {
 						dcelValue2.nextPoint = totalSet[index];
 						dcel.set(dcelIndex2.simpleHash(), dcelValue2);
@@ -167,7 +178,6 @@ function getAllIntersections() {
 
 				lastIndex = index;
 
-				console.log('Adding: ' + dcelIndex.ID1 + ',' + dcelIndex.ID2 + ',' + dcelIndex.simpleHash())
 				dcel.set(dcelIndex.simpleHash(), dcelValue);
 			//}
 		}
@@ -212,8 +222,4 @@ function findIntersection(point1, point2)
 	interS.fabricPoint = p;
 	intersectionSet.push(interS);
 	return [intersectionA, intersectionB];
-}
-
-function triangleSize(a, b, c) {
-	return (a.x*(b.y - c.y) + b.x*(c.y - a.y) + c.x*(a.y - b.y))/2.0;
 }
