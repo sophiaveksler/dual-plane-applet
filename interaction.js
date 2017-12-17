@@ -202,7 +202,6 @@ function replaceAllLinesOnDualCanvas() {
 		dualCanvas.add(element.fabricLine);
 	});
 	var values = Array.from(intersectionSet.values());
-	console.log(values);
 	values.forEach(function(element) {
 		dualCanvas.add(element);
 	});
