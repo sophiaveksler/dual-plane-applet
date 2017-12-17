@@ -5,6 +5,25 @@ function findTriangle(point1, point2) {
 	var point1 = new customPointDataStructure();
 	var point2 = new customPointDataStructure();
 	var point3 = new customPointDataStructure();
+	var point1ColorSave = 'blue';
+	var point2ColorSave = 'blue';
+	var point3ColorSave = 'blue';
+
+	// functions for changing colors
+	function savePointColors() {
+		point1ColorSave = point1.colorName;
+		point2ColorSave = point2.colorName;
+		point3ColorSave = point3.colorName;
+		point1.colorName = 'green';
+		point2.colorName = 'green';
+		point3.colorName = 'green';
+	}
+
+	function returnPointColors() {
+		point1.colorName = point1ColorSave;
+		point2.colorName = point2ColorSave;
+		point3.colorName = point3ColorSave;
+	}
 
 	// for every set of two points
 	for (let i = 0; i < totalSet.length; i++) {
@@ -44,56 +63,84 @@ function findTriangle(point1, point2) {
 
 			if(a != null && a != null) {
 				if(index1LastPoint != null) {
+					visualizePointChecking(totalSet[i], totalSet[j], index1LastPoint);
 					if(height == null || height > minAreaHeight(index1LastPoint, a, b)) {
 						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index1LastPoint, a, b));
 						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index1LastPoint));
+
+						// Update Data
 						height = minAreaHeight(index1LastPoint, a, b);
 						area = triangleArea(totalSet[i], totalSet[j], index1LastPoint);
+
+						// Handle Colors and Saving of New Points
+						returnPointColors();
 						point1 = totalSet[i];
 						point2 = totalSet[j];
 						point3 = index1LastPoint;
+						savePointColors();
 					} else {
 						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index1LastPoint));
 					}
 				}
 				
 				if(index1NextPoint != null) {
+					visualizePointChecking(totalSet[i], totalSet[j], index1NextPoint);
 					if(height == null || height > minAreaHeight(index1NextPoint, a, b)) {
 						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index1NextPoint, a, b));
 						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index1NextPoint));
+
+						// Update Data
 						height = minAreaHeight(index1NextPoint, a, b);
 						area = triangleArea(totalSet[i], totalSet[j], index1NextPoint);
+
+						// Handle Colors and Saving of New Points
+						returnPointColors();
 						point1 = totalSet[i];
 						point2 = totalSet[j];
 						point3 = index1NextPoint;
+						savePointColors();
 					} else {
 						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index1NextPoint));
 					}
 				}
 
 				if(index2LastPoint != null) {
+					visualizePointChecking(totalSet[i], totalSet[j], index2LastPoint);
 					if(height == null || height > minAreaHeight(index2LastPoint, a, b)) {
 						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index2LastPoint, a, b));
 						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index2LastPoint));
+
+						// Update Data
 						height = minAreaHeight(index2LastPoint, a, b);
 						area = triangleArea(totalSet[i], totalSet[j], index2LastPoint);
+
+						// Handle Colors and Saving of New Points
+						returnPointColors();
 						point1 = totalSet[i];
 						point2 = totalSet[j];
 						point3 = index2LastPoint;
+						savePointColors();
 					} else {
 						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index2LastPoint));
 					}
 				}
 
 				if(index2NextPoint != null) {
+					visualizePointChecking(totalSet[i], totalSet[j], index2NextPoint);
 					if(height == null || height > minAreaHeight(index2NextPoint, a, b)) {
 						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index2NextPoint, a, b));
 						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index2NextPoint));
+
+						// Update Data
 						height = minAreaHeight(index2NextPoint, a, b);
 						area = triangleArea(totalSet[i], totalSet[j], index2NextPoint);
+
+						// Handle Colors and Saving of New Points
+						returnPointColors();
 						point1 = totalSet[i];
 						point2 = totalSet[j];
 						point3 = index2NextPoint;
+						savePointColors();
 					} else {
 						console.log('no a   change : ' + area   + ' -- ' + triangleArea(totalSet[i], totalSet[j], index2NextPoint));
 					}
@@ -222,4 +269,17 @@ function findIntersection(point1, point2)
 	interS.fabricPoint = p;
 	intersectionSet.push(interS);
 	return [intersectionA, intersectionB];
+}
+
+function visualizePointChecking(point1, point2, checkingHeightPoint)
+{
+	changePointColor(point1, 'slateBlue');
+	changePointColor(point2, 'slateBlue');
+	changePointColor(checkingHeightPoint, 'darkmagenta');
+
+	//sleep here
+	
+	returnPointColorToSet(point1);
+	returnPointColorToSet(point2);
+	returnPointColorToSet(checkingHeightPoint);
 }
