@@ -253,11 +253,6 @@ $('#ham-calculator').click(function() {
 		return;
 	}
 
-	if (totalSet.length % 2 == 1) {
-		alert ("Add one more point please! You must have an even number of points to calculate the Ham Sandwich Cut.")
-		return;
-	}
-
 	$('#ham-calculator').text("Calculation in progress...");
 	$('#ham-calculator').attr("disabled", true);
 
