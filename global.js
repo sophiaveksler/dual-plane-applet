@@ -61,9 +61,28 @@ var point = new customPointDataStructure();
 // Set of points/lines
 var totalSet = new Array();
 
-//set of intersections
+// Set of intersections
 var intersectionSet = new Array();
+
+// DCEL stuff
 var dcel = new Map();
+
+function dcelIndexStructure() {
+	this.index1 = 0;
+	this.index2 = 0;
+}
+customPointDataStructure.prototype = {
+	doX : function() {}
+}
+
+function dcelValueStructure() {
+	this.intersection = [0,0];
+	this.lastID = null;
+	this.nextID = null;
+}
+customPointDataStructure.prototype = {
+	doX : function() {}
+}
 
 // Other Variables
 var color = 0;

@@ -7,9 +7,32 @@ function findTriangle(point1, point2) {
 
 
 function getAllIntersections() {
+	var lastID = null;
 	for (let i = 0; i < totalSet.length; i++) {
 		for (let j = i+1; j < totalSet.length; j++) {
-			findIntersection(totalSet[i], totalSet[j]);
+			if(i != j) {
+				var dcelIndex = new dcelIndexStructure();
+				dcelIndex.ID1 = totalSet[i].ID;
+				dcelIndex.ID2 = totalSet[j].ID;
+
+				var dcelValue = new dcelValueStructure();
+				dcelValue.intersection = findIntersection(totalSet[i], totalSet[j]);
+				dcelValue.lastID = lastID;
+				dcelValue.nextID = null;
+
+				if(lastID != null) {
+					dcelIndex = new dcelIndexStructure();
+					dcelIndex.ID1 = totalSet[i].ID;
+					dcelIndex.ID2 = lastID;
+
+					dcelValue = new dcelValueStructure();
+					dcelValue = dcel.get(dcelIndex);
+					dcelValue.nextID = totalSet[j].ID;
+					dcel.set(dcelIndex, dcelValue);
+				}
+
+				dcel.set(dcelIndex, dcelValue);
+			}
 		}
 	}
 	console.log(intersectionSet);
@@ -49,6 +72,6 @@ function findIntersection(point1, point2)
 	interS.fabricPoint = p;
 	intersectionSet.push(interS);
 
-	return intersection;
-	}
+	return [intersectionA, intersectionB];
+}
 
