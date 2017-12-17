@@ -6,9 +6,9 @@
 
 
 // Canvas Variables
-var primalCanvas = new fabric.Canvas('ham-plane');
+var primalCanvas = new fabric.Canvas('primal-plane');
 primalCanvas.drawingMode = true;
-var dualCanvas = new fabric.Canvas('ham-plane-result');
+var dualCanvas = new fabric.Canvas('dual-plane');
 primalCanvas.centeredScaling = true;
 dualCanvas.centeredScaling = true;
 dualCanvas.selection = false;

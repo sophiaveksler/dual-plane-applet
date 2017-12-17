@@ -24,7 +24,7 @@ primalCanvas.on('mouse:down', function (event) {
 
 function fillPointData(event) {
 	// Get X and Y coordinates
-	var offset = $('#ham-plane').offset();
+	var offset = $('#primal-plane').offset();
 	point.x = event.e.clientX - offset.left;
 	point.y = event.e.clientY - offset.top;
 
@@ -247,20 +247,20 @@ $('#reset').click(function () {
 	totalSet = new Array();
 	intersectionSet = new Map();
 	dcel = new Map();
-	$('#ham-calculator').text("Calculate all Intersections!");
-	$('#ham-calculator').attr("disabled", false);
+	$('#slab-calculator').text("Calculate 3-Slab");
+	$('#slab-calculator').attr("disabled", false);
 })
 
 
-$('#ham-calculator').click(function() {
+$('#slab-calculator').click(function() {
 
-	if (totalSet.length < 2) {
-		alert("At least 2 points need to be present in the primal plane in order to calculate the Ham Sandwich Cut.")
+	if (totalSet.length < 3) {
+		alert("At least 3 points need to be present in the primal plane in order to calculate the 3-slab of this set.")
 		return;
 	}
 
-	$('#ham-calculator').text("Calculation in progress...");
-	$('#ham-calculator').attr("disabled", true);
+	$('#slab-calculator').text("Calculation in progress...");
+	$('#slab-calculator').attr("disabled", true);
 
 	var point1 = new customPointDataStructure();
 	var point2 = new customPointDataStructure();
@@ -294,31 +294,6 @@ $('#ham-calculator').click(function() {
 		console.log('found null set of points');
 	}
 
-
-	// [a,b] = calculateHamSandwich();
-	// if (a == -1000) {
-	// 	return;
-	// }
-	// [slope, intercept] = getPrimalLineFromAB(a,b);
-	// line = createPrimalFabricLine(slope, intercept, 'darkmagenta', 1000);
-	// primalCanvas.add(line);
-	
-
-	
-	
-
-})
-$('#test').click(function() {
-	[point1, point2, point3] = findTriangle();
-	primalCanvas.drawingMode = false;
-
-	if(point1 != null) {
-		changePointColor(point1, 'green');
-		changePointColor(point2, 'green');
-		changePointColor(point3, 'green');
-	} else {
-		console.log('found null set of points');
-	}
 })
 
 
