@@ -64,12 +64,12 @@ function findTriangle(point1, point2) {
 			if(a != null && a != null) {
 				if(index1LastPoint != null) {
 					visualizePointChecking(totalSet[i], totalSet[j], index1LastPoint);
-					if(height == null || height > minAreaHeight(index1LastPoint, a, b)) {
-						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index1LastPoint, a, b));
+					if(height == null || height > threeSlabHeight(index1LastPoint, a, b)) {
+						console.log('height changed: ' + height + ' -> ' + threeSlabHeight(index1LastPoint, a, b));
 						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index1LastPoint));
 
 						// Update Data
-						height = minAreaHeight(index1LastPoint, a, b);
+						height = threeSlabHeight(index1LastPoint, a, b);
 						area = triangleArea(totalSet[i], totalSet[j], index1LastPoint);
 
 						// Handle Colors and Saving of New Points
@@ -85,12 +85,12 @@ function findTriangle(point1, point2) {
 				
 				if(index1NextPoint != null) {
 					visualizePointChecking(totalSet[i], totalSet[j], index1NextPoint);
-					if(height == null || height > minAreaHeight(index1NextPoint, a, b)) {
-						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index1NextPoint, a, b));
+					if(height == null || height > threeSlabHeight(index1NextPoint, a, b)) {
+						console.log('height changed: ' + height + ' -> ' + threeSlabHeight(index1NextPoint, a, b));
 						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index1NextPoint));
 
 						// Update Data
-						height = minAreaHeight(index1NextPoint, a, b);
+						height = threeSlabHeight(index1NextPoint, a, b);
 						area = triangleArea(totalSet[i], totalSet[j], index1NextPoint);
 
 						// Handle Colors and Saving of New Points
@@ -106,12 +106,12 @@ function findTriangle(point1, point2) {
 
 				if(index2LastPoint != null) {
 					visualizePointChecking(totalSet[i], totalSet[j], index2LastPoint);
-					if(height == null || height > minAreaHeight(index2LastPoint, a, b)) {
-						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index2LastPoint, a, b));
+					if(height == null || height > threeSlabHeight(index2LastPoint, a, b)) {
+						console.log('height changed: ' + height + ' -> ' + threeSlabHeight(index2LastPoint, a, b));
 						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index2LastPoint));
 
 						// Update Data
-						height = minAreaHeight(index2LastPoint, a, b);
+						height = threeSlabHeight(index2LastPoint, a, b);
 						area = triangleArea(totalSet[i], totalSet[j], index2LastPoint);
 
 						// Handle Colors and Saving of New Points
@@ -127,12 +127,12 @@ function findTriangle(point1, point2) {
 
 				if(index2NextPoint != null) {
 					visualizePointChecking(totalSet[i], totalSet[j], index2NextPoint);
-					if(height == null || height > minAreaHeight(index2NextPoint, a, b)) {
-						console.log('height changed: ' + height + ' -> ' + minAreaHeight(index2NextPoint, a, b));
+					if(height == null || height > threeSlabHeight(index2NextPoint, a, b)) {
+						console.log('height changed: ' + height + ' -> ' + threeSlabHeight(index2NextPoint, a, b));
 						console.log('area   changed: ' + area   + ' -> ' + triangleArea(totalSet[i], totalSet[j], index2NextPoint));
 
 						// Update Data
-						height = minAreaHeight(index2NextPoint, a, b);
+						height = threeSlabHeight(index2NextPoint, a, b);
 						area = triangleArea(totalSet[i], totalSet[j], index2NextPoint);
 
 						// Handle Colors and Saving of New Points
