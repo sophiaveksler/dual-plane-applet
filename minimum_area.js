@@ -10,7 +10,7 @@ function getAllIntersections() {
 	var lastID = null;
 	for (let i = 0; i < totalSet.length; i++) {
 		var lastID = null;
-		for (let j = i+1; j < totalSet.length; j++) {
+		for (let j = 0; j < totalSet.length; j++) {
 			if(i != j) {
 				var dcelIndex = new dcelIndexStructure();
 				dcelIndex.ID1 = totalSet[i].ID;
@@ -70,9 +70,9 @@ function findIntersection(point1, point2)
 											});
 	p.selectable=false;
 	dualCanvas.add(p);
+
 	interS.fabricPoint = p;
 	intersectionSet.push(interS);
-
 	return [intersectionA, intersectionB];
 }
 
