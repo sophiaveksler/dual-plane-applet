@@ -39,6 +39,7 @@ function calculateHamSandwich()
 
 	console.log(lowerSlopes);
 	console.log(upperSlopes);
+	console.log("Am i gonna fuck it all up?");
 	// pair lower and upper slopes arbitrarily
 	for(i = 0 ; i < lowerSlopes.length ; i++)
 	{
