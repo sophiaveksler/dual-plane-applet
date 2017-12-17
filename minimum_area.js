@@ -43,15 +43,16 @@ function createThreePointsArray() {
 			[a, b] = dcelValue1.intersection;
 
 			var closestPoints = [index1LastPoint, index1NextPoint, index2LastPoint, index2NextPoint];
+			var closetsPointsFiltered = Array.from(new Set(closestPoints));
 
-			for(let k = 0; k < closestPoints.length; k++) {
-				if(closestPoints[k] != null) {
+			for(let k = 0; k < closetsPointsFiltered.length; k++) {
+				if(closetsPointsFiltered[k] != null) {
 					var theseThreePoints = new threePoints();
 					theseThreePoints.a = a;
 					theseThreePoints.b = b;
 					theseThreePoints.point1 = totalSet[i];
 					theseThreePoints.point2 = totalSet[j];
-					theseThreePoints.point3 = closestPoints[k];
+					theseThreePoints.point3 = closetsPointsFiltered[k];
 					threePointsArray.push(theseThreePoints);
 				}
 			}
@@ -99,8 +100,8 @@ function findTriangle(i, height, area, point1, point2, point3) {	// functions fo
 				
 				//visualizePointChecking(totalSet[i], totalSet[j], closestPoints[k]);
 				if(threePointsArray[i].a != null && threePointsArray[i].b != null && (height == null || height > threeSlabHeight(threePointsArray[i].point3, threePointsArray[i].a, threePointsArray[i].b))) {
-					console.log('height changed: ' + height + ' -> ' + threeSlabHeight(threePointsArray[i].point3, threePointsArray[i].a, threePointsArray[i].b));
-					console.log('area   changed: ' + area   + ' -> ' + triangleArea(threePointsArray[i].point1, threePointsArray[i].point2, threePointsArray[i].point3));
+					//console.log('height changed: ' + height + ' -> ' + threeSlabHeight(threePointsArray[i].point3, threePointsArray[i].a, threePointsArray[i].b));
+					//console.log('area   changed: ' + area   + ' -> ' + triangleArea(threePointsArray[i].point1, threePointsArray[i].point2, threePointsArray[i].point3));
 
 					// Update Data
 					height = threeSlabHeight(threePointsArray[i].point3, threePointsArray[i].a, threePointsArray[i].b);
@@ -112,9 +113,10 @@ function findTriangle(i, height, area, point1, point2, point3) {	// functions fo
 					point2 = threePointsArray[i].point2;
 					point3 = threePointsArray[i].point3;
 					savePointColors();
-				} else {
-					console.log('no a   change : ' + area   + ' -- ' + triangleArea(threePointsArray[i].point1, threePointsArray[i].point2, threePointsArray[i].point1));
 				}
+				//else {
+				//	console.log('no a   change : ' + area   + ' -- ' + triangleArea(threePointsArray[i].point1, threePointsArray[i].point2, threePointsArray[i].point1));
+				//}
 
 				// recursion on next one
 				returnPointColors();
@@ -130,7 +132,6 @@ function findTriangle(i, height, area, point1, point2, point3) {	// functions fo
 				returnPointColorToSet(element);
 			});
 
-			console.log('new color: ' + 'green');
 			changePointColor(point1, 'green');
 			changePointColor(point2, 'green');
 			changePointColor(point3, 'green');
@@ -139,8 +140,8 @@ function findTriangle(i, height, area, point1, point2, point3) {	// functions fo
 			var intercept1 = point1.y - slope1 * point1.x;
 			var slope2 = slope1;
 			var intercept2 = point3.y - slope2 * point3.x;
-			console.log(slope1 + ',' + intercept1);
-			console.log(slope2 + ',' + intercept2);
+			console.log('Line 1: y = ' + slope1 + ' * x + ' + intercept1);
+			console.log('Line 2: y = ' + slope2 + ' * x + ' + intercept2);
 			primalCanvas.add(createPrimalFabricLine(slope1, intercept1, 'black', 999998));
 			primalCanvas.add(createPrimalFabricLine(slope2, intercept2, 'black', 999999));
 		} else {
