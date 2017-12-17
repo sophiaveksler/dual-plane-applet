@@ -178,6 +178,37 @@ primalCanvas.on('mouse:up', function (event) {
 	}
 });
 
+function findIntersection(point1, point2)
+{
+	let a1 = point1.dualSlope;
+	let b1 = point1.dualIntercept;
+	let a2 = point2.dualSlope;
+	let b2 = point2.dualIntercept;
+
+	var intersectionA, intersectionB;
+
+	if (point1.dualSlope - point2.dualSlope == 0) {
+		alert("Two of your lines are parallel and will never intersect. Please reset and try again.");
+		return [-1000, -1000];
+	}
+
+	intersectionA = (b2-b1)/(a1-a2)
+	intersectionB = a1 * intersectionA + b1;
+
+	[xA, yB] = scaleDualPointDataReverse(intersectionA, intersectionB)
+
+
+	p = new fabric.Circle(	{
+												radius: 5,
+												fill: 'darkmagenta',
+												left: xA - 5,
+												top: yB - 5,
+											});
+	p.selectable=false;
+	dualCanvas.add(p);
+
+	return [intersectionA, intersectionB];
+
 // -----------------------------------------
 // Changing Display of Data Functions
 // -----------------------------------------
