@@ -7,8 +7,8 @@ function findTriangle(point1, point2) {
 
 
 function getAllIntersections() {
-	var lastID = null;
 	for (let i = 0; i < totalSet.length; i++) {
+		var lastID = null;
 		for (let j = i+1; j < totalSet.length; j++) {
 			if(i != j) {
 				var dcelIndex = new dcelIndexStructure();
@@ -50,7 +50,7 @@ function findIntersection(point1, point2)
 
 	if (point1.dualSlope - point2.dualSlope == 0) {
 		alert("Two of your lines are parallel and will never intersect. Please reset and try again.");
-		return [-1000, -1000];
+		return [null, null];
 	}
 
 	intersectionA = (b2-b1)/(a1-a2)
