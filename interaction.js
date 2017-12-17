@@ -258,9 +258,23 @@ $('#ham-calculator').click(function() {
 	$('#ham-calculator').text("Calculation in progress...");
 	$('#ham-calculator').attr("disabled", true);
 
+	var point1 = new customPointDataStructure();
+	var point2 = new customPointDataStructure();
+	var point3 = new customPointDataStructure();
 
 	getAllIntersections();
+	[point1, point2, point3] = findTriangle();
 	primalCanvas.drawingMode = false;
+
+	if(point1 != null) {
+		changePointColor(point1, 'green');
+		changePointColor(point2, 'green');
+		changePointColor(point3, 'green');
+	} else {
+		console.log('found null set of points');
+	}
+
+
 	// [a,b] = calculateHamSandwich();
 	// if (a == -1000) {
 	// 	return;
@@ -275,7 +289,16 @@ $('#ham-calculator').click(function() {
 
 })
 $('#test').click(function() {
-	returnPointColorToSet(totalSet[0]);
+	[point1, point2, point3] = findTriangle();
+	primalCanvas.drawingMode = false;
+
+	if(point1 != null) {
+		changePointColor(point1, 'green');
+		changePointColor(point2, 'green');
+		changePointColor(point3, 'green');
+	} else {
+		console.log('found null set of points');
+	}
 })
 
 

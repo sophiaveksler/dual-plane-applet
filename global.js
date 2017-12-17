@@ -70,6 +70,9 @@ var dcel = new Map();
 function dcelIndexStructure() {
 	this.ID1 = 0;
 	this.ID2 = 0;
+	this.simpleHash = function() {
+		return this.ID1 * Math.PI + this.ID2;
+	}
 }
 customPointDataStructure.prototype = {
 	doX : function() {}
