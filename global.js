@@ -63,6 +63,7 @@ var totalSet = new Array();
 
 //set of intersections
 var intersectionSet = new Array();
+var dcel = new Map();
 
 // Other Variables
 var color = 0;
