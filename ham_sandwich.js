@@ -17,9 +17,7 @@ var upperSlopes = new Array();
 function calculateHamSandwich()
 {
 	if (totalSet.length == 2) {
-		findIntersection(totalSet[0], totalSet[1]);
-		// do ham sandwich stuff
-		return;
+		return findIntersection(totalSet[0], totalSet[1]);
 	}
 	// clear
 	linePairs = new Array();
@@ -66,7 +64,7 @@ function findIntersection(point1, point2)
 
 	var intersectionA, intersectionB;
 
-	if (point1.a - point2.a == 0) {
+	if (point1.dualSlope - point2.dualSlope == 0) {
 		console.log("NOPE");
 		return;
 	}
@@ -74,16 +72,17 @@ function findIntersection(point1, point2)
 	intersectionA = (b2-b1)/(a1-a2)
 	intersectionB = a1 * intersectionA + b1;
 
-	xA = intersectionA*50 + width/2.0
-	yA = intersectionB*50 + height/2.0
+	[xA, yB] = scaleDualPointDataReverse(intersectionA, intersectionB)
 
 
 	p = new fabric.Circle(	{
-												radius: 3,
-												fill: 'green',
-												left: xA,
-												top: yA,
+												radius: 5,
+												fill: 'darkmagenta',
+												left: xA - 5,
+												top: yB - 5,
 											});
+	p.selectable=false;
+	dualCanvas.add(p);
 
 	return [intersectionA, intersectionB];
 }

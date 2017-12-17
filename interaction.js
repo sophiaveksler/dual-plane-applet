@@ -143,6 +143,33 @@ function createDualFabricLine(dualSlope,dualIntercept,colorName,pointID) {
 	return line;
 }
 
+function createPrimalFabricLine(slope,intercept,colorName,pointID) {
+	// Get endpoints for the line
+	let x1 = x_min;
+	let y1 = slope*x1 + intercept;
+	let x2 = x_max;
+	let y2 = slope*x2 + intercept;
+
+	let canvasX1 = 0;
+	let canvasY1 = 0;
+	let canvasX2 = 0;
+	let canvasY2 = 0;
+	[canvasX1, canvasY1] = scaleDualPointDataReverse(x1, y1);
+	[canvasX2, canvasY2] = scaleDualPointDataReverse(x2, y2);
+
+	// Create Line
+	line = new fabric.Line([canvasX1, canvasY1, canvasX2, canvasY2],
+							{
+								stroke: colorName,
+								fill: colorName, 
+								strokeWidth: 3,
+								id: pointID
+							})
+	line.selectable = false;
+
+	return line;
+}
+
 primalCanvas.on('mouse:up', function (event) {
 	if (primalCanvas.drawingMode) {
 		primalCanvas.selection = true;
@@ -223,13 +250,21 @@ $('#ham-calculator').click(function() {
 		alert ("Add one more point please! You must have an even number of points to calculate the Ham Sandwich Cut.")
 		return;
 	}
-	primalCanvas.drawingMode = false;
-	calculateHamSandwich();
-	
-	
-	
+
 	$('#ham-calculator').text("Calculation in progress...");
 	$('#ham-calculator').attr("disabled", true);
+
+	
+	primalCanvas.drawingMode = false;
+	[a,b] = calculateHamSandwich();
+	[slope, intercept] = getPrimalLineFromAB(a,b);
+	line = createPrimalFabricLine(slope, intercept, 'darkmagenta', 1000);
+	primalCanvas.add(line);
+	
+
+	
+	
+
 })
 $('#test').click(function() {
 	returnPointColorToSet(totalSet[0]);
