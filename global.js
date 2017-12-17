@@ -86,3 +86,10 @@ customPointDataStructure.prototype = {
 
 // Other Variables
 var color = 0;
+
+// janky sleep function
+function sleep(miliseconds) {
+	var currentTime = new Date().getTime();
+		while (currentTime + miliseconds >= new Date().getTime()) {
+		}
+}
