@@ -65,8 +65,8 @@ function findIntersection(point1, point2)
 	var intersectionA, intersectionB;
 
 	if (point1.dualSlope - point2.dualSlope == 0) {
-		console.log("NOPE");
-		return;
+		alert("Two of your lines are parallel and will never intersect. Please reset and try again.");
+		return [-1000, -1000];
 	}
 
 	intersectionA = (b2-b1)/(a1-a2)

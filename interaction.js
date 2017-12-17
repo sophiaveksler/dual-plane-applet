@@ -254,9 +254,12 @@ $('#ham-calculator').click(function() {
 	$('#ham-calculator').text("Calculation in progress...");
 	$('#ham-calculator').attr("disabled", true);
 
-	
+
 	primalCanvas.drawingMode = false;
 	[a,b] = calculateHamSandwich();
+	if (a == -1000) {
+		return;
+	}
 	[slope, intercept] = getPrimalLineFromAB(a,b);
 	line = createPrimalFabricLine(slope, intercept, 'darkmagenta', 1000);
 	primalCanvas.add(line);
