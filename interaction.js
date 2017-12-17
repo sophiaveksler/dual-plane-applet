@@ -241,7 +241,8 @@ $('#reset').click(function () {
 	primalCanvas.clear();
 	dualCanvas.clear();
 	totalSet = new Array();
-	$('#ham-calculator').text("Calculate Ham Sandwich Cut");
+	intersectionSet = new Array();
+	$('#ham-calculator').text("Calculate all Intersections!");
 	$('#ham-calculator').attr("disabled", false);
 })
 
