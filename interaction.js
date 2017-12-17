@@ -30,12 +30,6 @@ function fillPointData(event) {
 
 	// Get Color
 	point.colorName = 'blue';
-	if (color == 0) {
-		color = 1;
-	} else if (color == 1) {
-		point.colorName = 'red';
-		color = 0;
-	}
 
 	// Get Fabric Point
 	point.fabricPoint = new fabric.Circle(	{
